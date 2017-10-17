@@ -105,7 +105,4 @@ Implementation
 Prototypes
 ==========
 
-![E:\\Media\\Documents\\Projects\\Apps\\f1\\Docs\\Plan\\img\\layout-ferrari.png](Plan/img/layout-ferrari.png)
-
-
-![](Plan/img/component_spec.png)
+See /docs/Specifiation.md
