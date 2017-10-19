@@ -1,18 +1,34 @@
 const path = require('path');
+const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const extractSass = new ExtractTextPlugin({
-  filename: "[name].[contenthash].css",
-  disable: process.env.NODE_ENV === "development"
+  filename: "[name].css",
+  disable: process.env.NODE_ENV !== "production"
 });
 
-const compressSass = process.env.NODE_ENV === 'production' ? 'compressed' : 'nested';
+if (process.env.NODE_ENV !== "production") {
+  console.log("DEVELOPMENT MODE");
+}
+else {
+  console.log("PRODUCTION MODE");
+}
 
 module.exports = {
   entry: {
     app: './src/index.js'
   },
+
+  plugins: [
+    new CleanWebpackPlugin(['dist']),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      }
+    }),
+    extractSass
+  ],
 
   // loaders
   module: {
@@ -34,31 +50,17 @@ module.exports = {
         test: /\.scss$/,
         include: path.resolve(__dirname, 'src/styles'),
         use: extractSass.extract({
-            use: [{
-                loader: "css-loader"
-            },
-            {
-                loader: "sass-loader",
-                options: {
-                  outputStyle: compressSass
-                }
-            }],
+            use: ["css-loader", "sass-loader"],
             // use style-loader in development
             fallback: "style-loader"
         })
-    }
-    ]
+    }]
   },
-
-  plugins: [
-    new CleanWebpackPlugin(['dist']),
-    extractSass
-  ],
 
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/'
-  },
+  }
 
 };
