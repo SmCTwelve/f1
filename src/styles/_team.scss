@@ -1,0 +1,19 @@
+// Team color maps
+$ferrari: (base: #84071f, high: #bf1429, acc: #287b49);
+$redbull: (base: #021e44, high: #153a5f, acc: #ab0d3b);
+
+// Set the appropriate color based on the team and type of color (base, highlight, accent)
+// Access the map of colors for the given team, where the map key is the color type.
+// Team argument must reference one of the team variables, so should use $ syntax.
+// e.g. @include setTeamColor($ferrari, base)
+@mixin setTeamColor($team, $type) {
+  background-color: map-get($map: $team, $key: $type);
+}
+
+// Create a gradient based on team highlight and base colors, taken from team color map.
+// $team argument should be given as the map variable name, e.g. setTeamGradient($ferrari)
+@mixin setTeamGradient($team) {
+  $start: map-get($map: $team, $key: high);
+  $end: map-get($map: $team, $key: base);
+  background: radial-gradient(circle, $start, $end);
+}
