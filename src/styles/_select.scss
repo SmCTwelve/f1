@@ -1,0 +1,13 @@
+// Styling for the team selection screen
+@import 'functions';
+
+.team-select {
+  @include setFlex();
+  @include centerItems();
+  width: 100%;
+
+  .logo {
+    height: 120px;
+    width: auto;
+  }
+}
