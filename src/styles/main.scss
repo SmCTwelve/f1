@@ -1,28 +1,8 @@
-@import 'chart', 'team';
+@import 'chart', 'team', 'functions';
 @import url('https://fonts.googleapis.com/css?family=Raleway|Roboto');
 
 $bgWhite: #F5F5F5;
 $mainText: rgba(0, 0, 0, 0.87);
-
-// Flex mixin -- sets display attribute to 'flex'
-// sets flex-flow to value of $flow param, accepts 'row' or 'column'
-@mixin setFlex($flow) {
-  display: flex;
-  @if $flow == column {
-    flex-flow: column;
-  }
-  @else {
-    flex-flow: row wrap;
-  }
-}
-
-// Set background attributes to enable parallax scrolling
-@mixin parallax() {
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
 
 // Body
 *, *::before, *::after {
@@ -46,7 +26,7 @@ body {
 
 // Navbar
 nav {
-  @include setFlex(row);
+  @include setFlex();
   justify-content: flex-end;
   align-items: center;
   margin: auto;
@@ -62,18 +42,32 @@ nav {
 }
 
 // Main header
-.hero {
-  @include setTeamGradient($ferrari);
+.hero-container {
   @include parallax();
-  @include setFlex(row);
-  justify-content: center;
-  align-items: center;
-  height: 500px;
+  @include setFlex();
+  @include centerItems();
+  min-height: 500px;
+
+  .hero {
+    @include setFlex(column);
+    @include centerItems();
+
+    img {
+      max-width: 1200px;
+    }
+
+    .hdg {
+      color: $mainText;
+      padding-top: 50px;
+      margin: 0;
+      font-size: 1.5rem;
+    }
+  }
 }
 
 // Content area
 .info {
-  @include setFlex(row);
+  @include setFlex();
   min-height: 800px;
 }
 
@@ -81,7 +75,7 @@ nav {
 .stats {
   @include setTeamGradient($ferrari);
   @include parallax();
-  @include setFlex(row);
+  @include setFlex();
   min-height: 500px;
 }
 
