@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Test from './test.js';
+import Team from './Team.jsx';
+import TeamInfo from './teams.json';
 import './styles/main.scss';
-
-console.log("Index file loaded.");
-Test();
 
 if (module.hot) {
   module.hot.accept();
 }
 
+ReactDOM.render(
+  <Team team="fer" title="SCUDERIA FERRARI" />,
+  document.getElementById("root")
+);
