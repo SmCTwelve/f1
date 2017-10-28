@@ -1,0 +1,59 @@
+{
+
+  "ferrari": {
+    "title": "Scuderia Ferrari",
+    "suffix": "fer",
+    "car": {
+      "model": "SF70H",
+      "stats": ""
+    },
+    "drivers": [
+      "S. Vettel",
+      "K. Raikkonen"
+    ],
+    "logo": "./images/logo-ferr.png",
+    "colors": {
+      "base": "#84071f",
+      "highlight": "#bf1429",
+      "accent": "#287b49"
+    }
+  },
+
+  "renault": {
+    "title": "Renault Sport Racing",
+    "suffix": "rsr",
+    "car": {
+      "model": "SF70H",
+      "stats": ""
+    },
+    "drivers": [
+      "C. Sainz",
+      "N. Hulkenberg"
+    ],
+    "logo": "./images/logo-rs.png",
+    "colors": {
+      "base": "#84071f",
+      "highlight": "#bf1429",
+      "accent": "#287b49"
+    }
+  },
+
+  "redbull": {
+    "title": "Red Bull Racing",
+    "suffix": "rbr",
+    "car": {
+      "model": "RB13",
+      "stats": ""
+    },
+    "drivers": [
+      "M. Verstappen",
+      "D. Ricciardo"
+    ],
+    "logo": "./images/logo-rb.png",
+    "colors": {
+      "base": "#021e44",
+      "highlight": "#153a5f",
+      "accent": "#ab0d3b"
+    }
+  }
+}
