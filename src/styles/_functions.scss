@@ -1,0 +1,28 @@
+// Utility functions
+
+// Flex mixin -- sets display attribute to 'flex'
+// sets flex-flow to value of $flow param, accepts 'row' or 'column'
+// Default call without argument is set to 'row'
+@mixin setFlex($flow: row) {
+  display: flex;
+  @if $flow == column {
+    flex-flow: column;
+  }
+  @else {
+    flex-flow: row wrap;
+  }
+}
+
+// Center align flex contenrs
+@mixin centerItems() {
+  justify-content: center;
+  align-items: center;
+}
+
+// Set background attributes to enable parallax scrolling
+@mixin parallax() {
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
