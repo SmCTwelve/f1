@@ -17,3 +17,11 @@ $redbull: (base: #021e44, high: #153a5f, acc: #ab0d3b);
   $end: map-get($map: $team, $key: base);
   background: radial-gradient(circle, $start, $end);
 }
+
+// Team classes
+.fer {
+  @include setTeamGradient($ferrari);
+}
+.rbr {
+  @include setTeamGradient($redbull);
+}
