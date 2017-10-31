@@ -8,7 +8,7 @@ import Renault from '../../images/car-rsr.png';
  * Hero image component. Renders the team title and car in the header.
  *
  * Props:
- * `team` -- team name, 'williams', 'redbull'.
+ * `team` -- team name e.g. 'williams', 'redbull';
  * `title` -- full team title to display in header, e.g. 'Scuderia Ferrari'.
  * @param {*} props
  */
