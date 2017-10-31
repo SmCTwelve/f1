@@ -4,7 +4,7 @@ import iconRedbull from '../../images/logo-rb.png';
 import iconRenault from '../../images/logo-rs.png';
 import iconWilliams from '../../images/logo-wr.png';
 
-const images = {
+const teamLogos = {
   ferrari: iconFerrari,
   redbull: iconRedbull,
   renault: iconRenault,
@@ -21,16 +21,16 @@ const Logo = (props) => {
   let src = "";
   switch (team) {
     case 'ferrari':
-      src = images.ferrari;
+      src = teamLogos.ferrari;
       break;
     case 'redbull':
-      src = images.redbull;
+      src = teamLogos.redbull;
       break;
     case 'renault':
-      src = images.renault;
+      src = teamLogos.renault;
       break;
     case 'williams':
-      src = images.williams;
+      src = teamLogos.williams;
       break;
 
     default:
@@ -38,9 +38,7 @@ const Logo = (props) => {
   }
 
   return(
-    <div className="logo">
-      <img src={src} alt={team} />
-    </div>
+    <img className="logo" src={src} alt={team} />
   );
 };
 
