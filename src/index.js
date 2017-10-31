@@ -9,6 +9,6 @@ if (module.hot) {
 }
 
 ReactDOM.render(
-  <Team team="fer" title="SCUDERIA FERRARI" />,
+  <Team />,
   document.getElementById("root")
 );
