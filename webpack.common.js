@@ -54,20 +54,23 @@ module.exports = {
             // use style-loader in development
             fallback: "style-loader"
         })
-    },
-    // images
-    {
-      test: /\.(png|svg|jpg|gif)$/,
-      include: path.resolve(__dirname, 'src/images'),
-      use: [{
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]',
-          outputPath: 'images/'
-        }
-      }]
-    }
-  ]},
+      },
+      // images
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        include: path.resolve(__dirname, 'src/images'),
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'images/'
+            }
+          }
+        ]
+      }
+    ]
+  },
 
   output: {
     filename: '[name].bundle.js',
