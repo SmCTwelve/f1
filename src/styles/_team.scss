@@ -1,6 +1,7 @@
 // Team color maps
 $ferrari: (base: #84071f, high: #bf1429, acc: #287b49);
-$redbull: (base: #021e44, high: #153a5f, acc: #ab0d3b);
+$redbull: (base: #081b2e, high: #123264, acc: #ab0d3b);
+$renault: (base: #de9f20, high: #e3b63e, acc: #333333);
 
 // Set the appropriate color based on the team and type of color (base, highlight, accent)
 // Access the map of colors for the given team, where the map key is the color type.
@@ -19,9 +20,12 @@ $redbull: (base: #021e44, high: #153a5f, acc: #ab0d3b);
 }
 
 // Team classes
-.fer {
+.ferrari {
   @include setTeamGradient($ferrari);
 }
-.rbr {
+.redbull {
   @include setTeamGradient($redbull);
+}
+.renault {
+  @include setTeamGradient($renault);
 }
