@@ -101,3 +101,16 @@ nav {
   max-width: 800px;
   padding: 0 10px;
   margin: 0 auto; }
+
+@media screen and (max-width: 1000px) {
+  .hero-container {
+    min-height: auto; }
+  .hero img {
+    width: 100%;
+    height: auto; }
+  .logo, .logo-container {
+    width: 65px;
+    height: auto; }
+  .hero .logo-container .logo {
+    right: 0px;
+    top: -35px; } }
