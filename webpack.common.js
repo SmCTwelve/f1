@@ -59,14 +59,20 @@ module.exports = {
     {
       test: /\.(png|svg|jpg|gif)$/,
       include: path.resolve(__dirname, 'src/images'),
-      use: ['file-loader']
+      use: [{
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+          outputPath: 'images/'
+        }
+      }]
     }
   ]},
 
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/'
+    publicPath: process.env.NODE_ENV === "production" ? 'dist/' : '/'
   }
 
 };
