@@ -42,9 +42,7 @@
 }
 
 // Specify hover true/false to increase shadow on mouseover, default false
-@mixin dropShadowHover($size: small) {
-  @if $size == small {
-    box-shadow: 0 12px 28px rgba(0,0,0,0.18),
-                0 8px 12px rgba(0,0,0,0.12);
-  }
+@mixin dropShadowHover() {
+  box-shadow: 0 12px 28px rgba(0,0,0,0.18),
+              0 8px 12px rgba(0,0,0,0.12);
 }
