@@ -20,13 +20,8 @@ const teams = [
  */
 const TeamSelect = (props) => {
 
-  const click = (team) => {
-    props.handleOnClick(team);
-    console.log("Update");
-  }
-
   const logos = teams.map( (team, index) =>
-    <Logo team={team} key={index} onClick={() => {click(team)}} />
+    <Logo team={team} key={index} tab={index} click={props.handleOnClick} />
   );
 
   return(
