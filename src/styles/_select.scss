@@ -5,9 +5,15 @@
   @include setFlex();
   @include centerItems();
   width: 100%;
+}
 
-  .logo {
-    height: 120px;
-    width: auto;
-  }
+.logo {
+  height: 150px;
+  width: auto;
+  align-self: flex-start;
+  position: relative;
+  top: -65px;
+  right: 75px;
+  border-radius: 100%;
+  @include dropShadow(big);
 }
