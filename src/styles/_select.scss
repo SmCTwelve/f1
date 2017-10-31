@@ -1,19 +1,31 @@
 // Styling for the team selection screen
 @import 'functions';
 
+.logo {
+  border-radius: 100%;
+  @include dropShadow(big);
+  &, .logo-container {
+    height: 150px;
+    width: auto;
+  }
+}
+
 .team-select {
   @include setFlex();
   @include centerItems();
   width: 100%;
+  .logo {
+    cursor: pointer;
+  }
 }
 
-.logo {
-  height: 150px;
-  width: auto;
-  align-self: flex-start;
-  position: relative;
-  top: -65px;
-  right: 75px;
-  border-radius: 100%;
-  @include dropShadow(big);
+.hero {
+  .logo-container {
+    align-self: flex-start;
+    .logo {
+      position: relative;
+      top: -65px;
+      right: 75px;
+    }
+  }
 }
