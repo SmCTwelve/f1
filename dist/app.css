@@ -1,0 +1,103 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway|Roboto);.ferrari {
+  background: radial-gradient(circle, #bf1429, #84071f); }
+
+.redbull {
+  background: radial-gradient(circle, #123264, #081b2e); }
+
+.renault {
+  background: radial-gradient(circle, #e3b63e, #de9f20); }
+
+.logo {
+  border-radius: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18), 0 2px 20px rgba(0, 0, 0, 0.12); }
+  .logo, .logo .logo-container {
+    height: 150px;
+    width: auto; }
+
+.team-select {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%; }
+  .team-select .logo {
+    cursor: pointer; }
+
+.hero .logo-container {
+  align-self: flex-start; }
+  .hero .logo-container .logo {
+    position: relative;
+    top: -65px;
+    right: 75px; }
+
+*, *::before, *::after {
+  box-sizing: border-box; }
+
+body, html {
+  margin: 0;
+  padding: 0; }
+
+body {
+  display: flex;
+  flex-flow: column;
+  background-color: #F5F5F5;
+  font-family: 'Roboto', sans-serif; }
+
+.hdg {
+  font-family: 'Raleway', sans-serif; }
+
+nav {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+  align-items: center;
+  margin: auto;
+  min-height: 100px;
+  max-width: 800px; }
+  nav .navlink {
+    color: rgba(0, 0, 0, 0.87);
+    text-decoration: none;
+    height: 100%;
+    padding: 10px;
+    transition: 0.3s; }
+    nav .navlink:hover {
+      background-color: #e7e7e7;
+      transition: 0.3s; }
+
+.hero-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  min-height: 500px; }
+  .hero-container .hero {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center; }
+    .hero-container .hero img {
+      max-width: 1200px; }
+    .hero-container .hero .hdg {
+      color: rgba(0, 0, 0, 0.87);
+      padding-top: 50px;
+      margin: 0;
+      font-size: 1.5rem; }
+
+.info {
+  display: flex;
+  flex-flow: row wrap;
+  min-height: 800px; }
+
+.stats {
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-flow: row wrap;
+  min-height: 500px; }
+
+.content {
+  max-width: 800px;
+  padding: 0 10px;
+  margin: 0 auto; }
