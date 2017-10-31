@@ -1,4 +1,4 @@
-@import 'chart', 'team', 'functions';
+@import 'chart', 'team', 'functions', 'select';
 @import url('https://fonts.googleapis.com/css?family=Raleway|Roboto');
 
 $bgWhite: #F5F5F5;
@@ -30,7 +30,7 @@ nav {
   justify-content: flex-end;
   align-items: center;
   margin: auto;
-  min-height: 75px;
+  min-height: 100px;
   max-width: 800px;
 
   .navlink {
@@ -38,12 +38,17 @@ nav {
     text-decoration: none;
     height: 100%;
     padding: 10px;
+    transition: 0.3s;
+
+    &:hover {
+      background-color: rgb(231, 231, 231);
+      transition: 0.3s;
+    }
   }
 }
 
 // Main header
 .hero-container {
-  @include parallax();
   @include setFlex();
   @include centerItems();
   min-height: 500px;
@@ -73,7 +78,6 @@ nav {
 
 // Stats area
 .stats {
-  @include setTeamGradient($ferrari);
   @include parallax();
   @include setFlex();
   min-height: 500px;
