@@ -11,8 +11,8 @@
   border-radius: 100%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18), 0 2px 20px rgba(0, 0, 0, 0.12); }
   .logo, .logo .logo-container {
-    height: 150px;
-    width: auto; }
+    max-width: 150px;
+    margin: 0 25px; }
 
 .team-select {
   display: flex;
@@ -24,11 +24,12 @@
     cursor: pointer; }
 
 .hero .logo-container {
+  visibility: hidden;
   align-self: flex-start; }
   .hero .logo-container .logo {
     position: relative;
     top: -65px;
-    right: 75px; }
+    right: 0px; }
 
 *, *::before, *::after {
   box-sizing: border-box; }
@@ -68,15 +69,15 @@ nav {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  align-items: center;
-  min-height: 500px; }
+  align-items: center; }
   .hero-container .hero {
     display: flex;
     flex-flow: column;
     justify-content: center;
-    align-items: center; }
-    .hero-container .hero img {
-      max-width: 1200px; }
+    align-items: center;
+    max-width: 1200px; }
+    .hero-container .hero #car {
+      width: 100%; }
     .hero-container .hero .hdg {
       color: rgba(0, 0, 0, 0.87);
       padding-top: 50px;
@@ -101,16 +102,3 @@ nav {
   max-width: 800px;
   padding: 0 10px;
   margin: 0 auto; }
-
-@media screen and (max-width: 1000px) {
-  .hero-container {
-    min-height: auto; }
-  .hero img {
-    width: 100%;
-    height: auto; }
-  .logo, .logo-container {
-    width: 65px;
-    height: auto; }
-  .hero .logo-container .logo {
-    right: 0px;
-    top: -35px; } }
