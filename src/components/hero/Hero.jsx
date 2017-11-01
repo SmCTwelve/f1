@@ -32,9 +32,12 @@ const Hero = (props) => {
   }
 
   return(
-    <div className="hero content">
+    <div className="hero">
       <Logo team={props.team} />
-      <img src={url} alt={props.title} />
+      <img id="car" src={url} alt={props.title}
+      onLoad={() => {
+        document.querySelector(".logo-container").style.visibility = "visible";
+        }}/>
       <h3 className="hdg">{props.title}</h3>
     </div>
 )};
