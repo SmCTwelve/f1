@@ -10,5 +10,5 @@ if (module.hot) {
 
 ReactDOM.render(
   <Team />,
-  document.getElementById("root")
+  document.getElementById("main")
 );
