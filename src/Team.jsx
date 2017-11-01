@@ -25,9 +25,6 @@ class Team extends Component {
     this.setState({
       team: team,
       index: false
-    }, () => {
-      console.log("SELECTED TEAM: " + team);
-      console.log(this.index);
     });
   }
 
