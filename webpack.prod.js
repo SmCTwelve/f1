@@ -22,10 +22,11 @@ module.exports = merge(common, {
             },
             optipng: {
               optimizationLevel: 7,
+              enabled: true
             },
             mozjpeg: {
               progressive: true,
-              quality: 65
+              quality: 75
             }
           }
         }
