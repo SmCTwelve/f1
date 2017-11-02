@@ -31,39 +31,8 @@
     top: -65px;
     right: 0px; }
 
-*, *::before, *::after {
-  box-sizing: border-box; }
-
-body, html {
-  margin: 0;
-  padding: 0; }
-
-body {
-  display: flex;
-  flex-flow: column;
-  background-color: #F5F5F5;
-  font-family: 'Roboto', sans-serif; }
-
 .hdg {
   font-family: 'Raleway', sans-serif; }
-
-nav {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-end;
-  align-items: center;
-  margin: auto;
-  min-height: 100px;
-  max-width: 800px; }
-  nav .navlink {
-    color: rgba(0, 0, 0, 0.87);
-    text-decoration: none;
-    height: 100%;
-    padding: 10px;
-    transition: 0.3s; }
-    nav .navlink:hover {
-      background-color: #e7e7e7;
-      transition: 0.3s; }
 
 .hero-container {
   display: flex;
