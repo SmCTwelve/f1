@@ -3,11 +3,12 @@
 
 .logo {
   border-radius: 100%;
+  width: 100%;
   @include dropShadow(big);
-  &, .logo-container {
-    max-width: 150px;
-    margin: 0 25px;
-  }
+}
+
+.logo-container {
+  max-width: 150px;
 }
 
 .team-select {
@@ -22,10 +23,11 @@
 .hero {
   .logo-container {
     align-self: flex-start;
-    .logo {
-      position: relative;
-      top: -65px;
-      right: 0px;
-    }
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: -65px;
+    left: 10%;
   }
 }
