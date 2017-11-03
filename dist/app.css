@@ -24,7 +24,6 @@
     cursor: pointer; }
 
 .hero .logo-container {
-  visibility: hidden;
   align-self: flex-start; }
   .hero .logo-container .logo {
     position: relative;
@@ -33,6 +32,9 @@
 
 .hdg {
   font-family: 'Raleway', sans-serif; }
+
+.hide {
+  visibility: hidden; }
 
 .hero-container {
   display: flex;
