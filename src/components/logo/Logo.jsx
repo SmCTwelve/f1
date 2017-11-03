@@ -49,7 +49,7 @@ const Logo = (props) => {
   };
 
   return(
-    <div className="logo-container" role="link" tabIndex={props.tab} onClick={handleClick} onKeyPress={handleClick}>
+    <div className="logo-container" role="link" tabIndex={0} onClick={handleClick} onKeyPress={handleClick}>
       <img className="logo" src={src} alt={team} />
     </div>
   );
