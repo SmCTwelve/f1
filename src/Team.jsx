@@ -15,8 +15,8 @@ class Team extends Component {
     this.state = {
       // `team` -- to display, updates styles and content based on selected team.
       // `index` -- whether to render index page with team selection (default landing page).
-      team: "ferrari",
-      index: false
+      team: "",
+      index: true
     };
 
     this.updateTeam = this.updateTeam.bind(this);
@@ -36,9 +36,7 @@ class Team extends Component {
       element.classList.remove("hide");
     });
     console.log("TEAM COMPONENT MOUNTED");
-    setTimeout(() => {
-      loader.style.display = 'none';
-    }, 1000);
+    loader.style.display = 'none';
   }
 
   componentWillUpdate() {
@@ -48,9 +46,7 @@ class Team extends Component {
 
   componentDidUpdate() {
     console.log("TEAM COMPONENT WAS UPDATED");
-    setTimeout(() => {
-      loader.style.display = 'none';
-    }, 1000);
+    loader.style.display = 'none';
   }
 
   render() {
