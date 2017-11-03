@@ -5,24 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>F1 Team Statistics</title>
-
   <style type="text/css">
     *, *::before, *::after {
       box-sizing: border-box;
     }
-
     body, html {
       margin: 0;
       padding: 0;
     }
-
     body {
       display: flex;
       flex-flow: column;
       background-color: #F5F5F5;
       font-family: 'Roboto', 'Arial', sans-serif;
     }
-
     nav {
       display: flex;
       justify-content: flex-end;
@@ -31,7 +27,6 @@
       min-height: 100px;
       max-width: 800px;
     }
-
     .navlink {
       color: rgba(0, 0, 0, 0.87);
       text-decoration: none;
@@ -39,15 +34,18 @@
       padding: 10px;
       transition: 0.3s;
     }
-
     .navlink:hover {
       background-color: rgb(231, 231, 231);
       transition: 0.3s;
     }
+    #loader {
+      width: 100vw;
+      height: 100vh;
+      background: white;
+    }
   </style>
-
   <link rel="preload" href="./dist/app.css" as="style" onload="this.rel='stylesheet'">
-  <link rel="preload" href="./dist/app.bundle.js" as="script">
+  <link rel="preload" href="app.bundle.js" as="script">
 </head>
 <body>
   <div class="nav-container">
@@ -58,10 +56,12 @@
     </nav>
   </div>
 
+  <div id="loader"><h1>LOADING</h1></div>
+
   <main id="main"></main>
 
   <footer></footer>
 
-  <script src="./dist/app.bundle.js" async></script>
+  <script src="app.bundle.js" async></script>
 </body>
 </html>
