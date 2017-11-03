@@ -34,10 +34,14 @@ const Hero = (props) => {
   return(
     <div className="hero">
       <Logo team={props.team} />
-      <img id="car" src={url} alt={props.title}
+      <img id="car" src={url} alt={props.title} width='1000' height='230'
       onLoad={() => {
-        document.querySelector(".logo-container").style.visibility = "visible";
-        }}/>
+        const hidden = document.querySelectorAll(".hide");
+        hidden.forEach( (element) => {
+          element.classList.remove("hide");
+        });
+      }}
+      />
       <h3 className="hdg">{props.title}</h3>
     </div>
 )};

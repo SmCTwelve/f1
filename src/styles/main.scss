@@ -8,6 +8,10 @@ $mainText: rgba(0, 0, 0, 0.87);
   font-family: 'Raleway', sans-serif;
 }
 
+.hide {
+  visibility: hidden;
+}
+
 // Main header
 .hero-container {
   @include setFlex();
