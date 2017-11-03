@@ -1,5 +1,6 @@
 import React from 'react';
 import Logo from '../logo/Logo.jsx';
+import Picture from '../picture/Picture.jsx';
 import Ferrari from '../../images/car-fer.png';
 import Redbull from '../../images/car-rbr.png';
 import Renault from '../../images/car-rsr.png';
@@ -14,34 +15,30 @@ import Renault from '../../images/car-rsr.png';
  */
 const Hero = (props) => {
 
+  let src = "";
   // Get correct car image
-  let url = "";
   switch (props.team) {
     case "ferrari":
-      url = Ferrari;
+      src = Ferrari;
       break;
     case "redbull":
-      url = Redbull;
+      src = Redbull;
       break;
     case "renault":
-      url = Renault;
+      src = Renault;
       break;
 
     default:
       break;
   }
 
+  const carWidth = 1000;
+  const carHeight = 228;
+
   return(
     <div className="hero">
       <Logo team={props.team} />
-      <img id="car" src={url} alt={props.title} width='1000' height='230'
-      onLoad={() => {
-        const hidden = document.querySelectorAll(".hide");
-        hidden.forEach( (element) => {
-          element.classList.remove("hide");
-        });
-      }}
-      />
+      <Picture src={src} alt={props.team} width={carWidth} height={carHeight} />
       <h3 className="hdg">{props.title}</h3>
     </div>
 )};
