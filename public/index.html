@@ -43,6 +43,12 @@
       background-color: rgb(231, 231, 231);
       transition: 0.3s;
     }
+
+    #loader {
+      width: 100vw;
+      height: 100vh;
+      background: white;
+    }
   </style>
   <link rel="preload" href="./dist/app.css" as="style" onload="this.rel='stylesheet'">
   <link rel="preload" href="app.bundle.js" as="script">
@@ -55,6 +61,8 @@
       <a class="navlink" href="#">TEAMS</a>
     </nav>
   </div>
+
+  <div id="loader"><h1>LOADING</h1></div>
 
   <main id="main"></main>
 
