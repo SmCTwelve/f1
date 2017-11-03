@@ -10,6 +10,22 @@ $mainText: rgba(0, 0, 0, 0.87);
 
 .hide {
   visibility: hidden;
+  opacity: 0;
+}
+
+// Responsive container which reserves space before load
+.image-container {
+  width: 100%;
+  height: 0;
+  position: relative;
+
+  img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    transition: all 1s;
+  }
 }
 
 // Main header
@@ -20,17 +36,18 @@ $mainText: rgba(0, 0, 0, 0.87);
   .hero {
     @include setFlex(column);
     @include centerItems();
-    max-width: 1200px;
-
-    #car {
-      width: 100%;
-    }
+    width: 1200px;
 
     .hdg {
       color: $mainText;
       padding-top: 50px;
       margin: 0;
       font-size: 1.5rem;
+    }
+
+    // Wrapper fills parent, set max-width on component to original image
+    .image-wrapper {
+      width: 100%;
     }
   }
 }
