@@ -5,9 +5,9 @@ import TeamSelect from './components/teamselect/Teamselect.jsx';
 const loader = document.getElementById('loader');
 
 /**
- * Main component for team page to render Hero, Info and Stats components.
+ * Main app component to render the page and provide core functionality.
  */
-class Team extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
 
@@ -69,4 +69,4 @@ class Team extends Component {
   }
 }
 
-export default Team;
+export default App;
