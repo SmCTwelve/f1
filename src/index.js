@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Team from './Team.jsx';
+import App from './App.jsx';
 import TeamInfo from './teams.json';
 import './styles/main.scss';
 
@@ -9,6 +9,6 @@ if (module.hot) {
 }
 
 ReactDOM.render(
-  <Team />,
+  <App />,
   document.getElementById("main")
 );
