@@ -4,9 +4,12 @@
 $bgWhite: #F5F5F5;
 $mainText: rgba(0, 0, 0, 0.87);
 
+body {
+  color: $mainText;
+}
+
 .hdg {
   font-family: 'Raleway', sans-serif;
-  color: $mainText;
 }
 
 // Responsive container which reserves space before load
@@ -66,5 +69,4 @@ $mainText: rgba(0, 0, 0, 0.87);
   max-width: 800px;
   padding: 0 16px;
   margin: 0 auto;
-  color: $mainText;
 }
