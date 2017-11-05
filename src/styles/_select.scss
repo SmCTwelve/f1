@@ -2,33 +2,43 @@
 @import 'functions';
 
 .logo {
-  border-radius: 100%;
+  border-radius: 50%;
   width: 100%;
   @include dropShadow(big);
+  background-color: transparent;
+  z-index: 1;
 }
 
 .logo-container {
-  max-width: 150px;
-  z-index: 2;
+  max-width: 148px;
+  z-index: 1;
+  background-color: transparent;
+  border-radius: 50%;
 }
 
 .team-select {
   @include setFlex();
   @include centerItems();
   width: 100%;
+  margin-top: 100px;
   .logo {
     cursor: pointer;
   }
 }
 
-.hero {
+.nav {
   .logo-container {
-    align-self: flex-start;
-    position: relative;
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
-    top: -65px;
-    left: 10%;
+    top: 20px;
+    left: -125px;
+    transition: all 0.2s ease;
+
+    &.shrink {
+      transform: scale(0.6) translateY(-60px);
+      transition: all 0.2s ease;
+    }
   }
 }
