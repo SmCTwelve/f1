@@ -1,5 +1,4 @@
 import React from 'react';
-import Logo from '../logo/Logo.jsx';
 import Picture from '../picture/Picture.jsx';
 import Ferrari from '../../images/car-fer.png';
 import Redbull from '../../images/car-rbr.png';
@@ -37,7 +36,6 @@ const Hero = (props) => {
 
   return(
     <div className="hero">
-      <Logo team={props.team} />
       <Picture src={src} alt={props.team} width={carWidth} height={carHeight} />
       <h3 className="hdg">{props.title}</h3>
     </div>
