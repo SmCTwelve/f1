@@ -13,18 +13,36 @@
       margin: 0;
       padding: 0;
     }
-    body {
+    body, main {
       display: flex;
       flex-flow: column;
       background-color: #F5F5F5;
       font-family: 'Roboto', 'Arial', sans-serif;
     }
-    nav {
+    .hide {
+      visibility: hidden;
+      opacity: 0;
+    }
+    .nav-container {
+      background-color: #F5F5F5;
+      position: fixed;
+      min-height: 100px;
+      width: 100%;
+      box-shadow: 0px 2px 12px rgba(0,0,0,0.12),
+                  0px 1px 4px rgba(0,0,0,0.15);
+      z-index: 1;
+      transition: min-height 0.2s ease-out;
+    }
+    .nav-container.shrink {
+      min-height: 65px;
+    }
+    .nav {
       display: flex;
       justify-content: flex-end;
       align-items: center;
+      position: relative;
       margin: auto;
-      min-height: 100px;
+      min-height: inherit;
       max-width: 800px;
     }
     .navlink {
@@ -39,29 +57,27 @@
       transition: 0.3s;
     }
     #loader {
-      width: 100vw;
-      height: 100vh;
-      background: white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      border: 12px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 12px solid #ccc;
+      width: 100px;
+      height: 100px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
-  <link rel="preload" href="dist/app.css" as="style" onload="this.rel='stylesheet'">
-  <link rel="preload" href="dist/app.bundle.js" as="script">
+  <link rel="preload" href="./dist/app.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="./dist/app.bundle.js" as="script">
 </head>
 <body>
-  <div class="nav-container">
-    <nav>
-      <a class="navlink" href="#">HOME</a>
-      <a class="navlink" href="#">ABOUT</a>
-      <a class="navlink" href="#">TEAMS</a>
-    </nav>
-  </div>
-
-  <div id="loader"><h1>LOADING</h1></div>
-
-  <main id="main"></main>
-
-  <footer></footer>
-
-  <script src="dist/app.bundle.js" async></script>
+  <div id="loader"></div>
+  <div id="root" class="hide"></div>
+  <script src="./dist/app.bundle.js" async></script>
 </body>
 </html>
