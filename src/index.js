@@ -10,5 +10,5 @@ if (module.hot) {
 
 ReactDOM.render(
   <App />,
-  document.getElementById("main")
+  document.getElementById("root")
 );
