@@ -6,11 +6,7 @@ $mainText: rgba(0, 0, 0, 0.87);
 
 .hdg {
   font-family: 'Raleway', sans-serif;
-}
-
-.hide {
-  visibility: hidden;
-  opacity: 0;
+  color: $mainText;
 }
 
 // Responsive container which reserves space before load
@@ -24,7 +20,7 @@ $mainText: rgba(0, 0, 0, 0.87);
     width: 100%;
     height: 100%;
     opacity: 1;
-    transition: all 1s;
+    transition: opacity 0.2s ease-out;
   }
 }
 
@@ -32,6 +28,7 @@ $mainText: rgba(0, 0, 0, 0.87);
 .hero-container {
   @include setFlex();
   @include centerItems();
+  padding-top: 220px;
 
   .hero {
     @include setFlex(column);
@@ -39,7 +36,6 @@ $mainText: rgba(0, 0, 0, 0.87);
     width: 1200px;
 
     .hdg {
-      color: $mainText;
       padding-top: 50px;
       margin: 0;
       font-size: 1.5rem;
@@ -68,6 +64,7 @@ $mainText: rgba(0, 0, 0, 0.87);
 // Container to restrict content width and presentation
 .content {
   max-width: 800px;
-  padding: 0 10px;
+  padding: 0 16px;
   margin: 0 auto;
+  color: $mainText;
 }
