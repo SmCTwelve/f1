@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import Hero from './components/hero/Hero.jsx';
+import Nav from './components/nav/Nav.jsx';
 import TeamSelect from './components/teamselect/Teamselect.jsx';
 
 const loader = document.getElementById('loader');
+const root = document.getElementById('root');
 
 /**
  * Main app component to render the page and provide core functionality.
@@ -20,6 +22,7 @@ class App extends Component {
     };
 
     this.updateTeam = this.updateTeam.bind(this);
+    // this.animateNav = this.animateNav.bind(this);
   }
 
   // Change state of component to the chosen team
@@ -30,40 +33,64 @@ class App extends Component {
     });
   }
 
-  componentDidMount() {
+  // Remove hide class from any element that has it
+  unhide() {
     const hidden = document.querySelectorAll(".hide");
     hidden.forEach( (element) => {
       element.classList.remove("hide");
     });
-    console.log("TEAM COMPONENT MOUNTED");
+  }
+
+  componentDidMount() {
     loader.style.display = 'none';
+    this.unhide();
+    console.log("TEAM COMPONENT MOUNTED");
+    window.addEventListener('scroll', this.animateNav);
   }
 
   componentWillUpdate() {
+    root.classList.add('hide');
     loader.style.display = 'block';
     console.log("TEAM IS UPDATING");
   }
 
   componentDidUpdate() {
-    console.log("TEAM COMPONENT WAS UPDATED");
     loader.style.display = 'none';
+    this.unhide();
+    console.log("TEAM COMPONENT WAS UPDATED");
   }
 
   render() {
+    // Render view for selected team if not on index.
     if (!this.state.index) {
       return(
         <div>
-          <div className={"hero-container " + this.state.team}>
-            <Hero team={this.state.team} title={this.state.title} />
-          </div>
-          <div className="info"></div>
-          <div className={"stats " + this.state.team}></div>
+          <Nav team={this.state.team} index={this.state.index} />
+          <main id="main">
+            <div className={"hero-container " + this.state.team}>
+              <Hero team={this.state.team} title={this.state.title} />
+            </div>
+            <div id="info" className="info">
+              <div className="content">
+              <h1 className="hdg">{this.state.team}</h1>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro odio reiciendis illum corrupti, dolore esse, laborum, necessitatibus dolorem nostrum officiis quo delectus dolorum quibusdam? Quae maxime commodi expedita dignissimos. Quasi?</p>
+              </div>
+            </div>
+            <div className={"stats " + this.state.team}></div>
+          </main>
         </div>
       );
     }
+    // Render index view and team selection.
     else {
       return(
-        <TeamSelect handleOnClick={this.updateTeam} />
+        <div>
+          <Nav index={this.state.index} />
+          <main id="main">
+            <TeamSelect handleOnClick={this.updateTeam} />
+          </main>
+        </div>
+
       );
     }
   }
