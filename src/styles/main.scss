@@ -70,3 +70,21 @@ body {
   padding: 0 16px;
   margin: 0 auto;
 }
+
+@media screen and (max-width: 980px) {
+  .nav-container, .nav-container.shrink {
+    min-height: 80px;
+  }
+}
+@media screen and (max-width: 420px) {
+  .hero-container {
+    padding-top: 120px;
+  }
+}
+
+// ## TODO
+// Download font and bundle.
+// Different image sizes for different devices.
+// Try <picture> to responsively select appropriate image.
+// Use AJAX requests to fetch main content (team info, stats) from the
+// network asynchronously.
