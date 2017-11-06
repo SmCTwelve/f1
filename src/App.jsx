@@ -34,7 +34,7 @@ class App extends Component {
 
   // Remove hide class from any element that has it
   unhide() {
-    const hidden = document.querySelectorAll(".hide");
+    const hidden = [...document.querySelectorAll(".hide")];
     hidden.forEach( (element) => {
       element.classList.remove("hide");
     });
