@@ -22,7 +22,6 @@ class App extends Component {
     };
 
     this.updateTeam = this.updateTeam.bind(this);
-    // this.animateNav = this.animateNav.bind(this);
   }
 
   // Change state of component to the chosen team
