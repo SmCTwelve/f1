@@ -34,8 +34,9 @@ class App extends Component {
 
   // Remove hide class from any element that has it
   unhide() {
-    const hidden = [...document.querySelectorAll(".hide")];
-    hidden.forEach( (element) => {
+    const hidden = document.querySelectorAll(".hide");
+    // Call Array.forEach() method for Edge and IE11 - don't support NodeList.forEach()
+    Array.prototype.forEach.call(hidden, (element) => {
       element.classList.remove("hide");
     });
   }
