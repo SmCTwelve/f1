@@ -59,12 +59,13 @@
     #loader {
       position: absolute;
       top: 50%;
-      left: 50%;
-      border: 12px solid #f3f3f3;
+      align-self: center;
+      border: 8px solid #f3f3f3;
       border-radius: 50%;
-      border-top: 12px solid #ccc;
-      width: 100px;
-      height: 100px;
+      border-top: 8px solid #ccc;
+      min-width: 75px;
+      min-height: 75px;
+      margin: auto;
       animation: spin 1s linear infinite;
     }
     @keyframes spin {
@@ -72,8 +73,34 @@
       100% { transform: rotate(360deg); }
     }
   </style>
-  <link rel="preload" href="./dist/app.css" as="style" onload="this.rel='stylesheet'">
-  <link rel="preload" href="app.bundle.js" as="script">
+  <!-- Preload Script and CSS, if supported, or load normally  -->
+  <script type="text/javascript">
+    var preloadSupported = function() {
+      var link = document.createElement('link');
+      var relList = link.relList;
+      if (!relList || !relList.supports) {
+        console.log("Preloading unsupported.");
+        return false;
+      }
+      return relList.supports('preload');
+    };
+    var css = document.createElement('link');
+    var js = document.createElement('link');
+    css.href = "./dist/app.css";
+    js.href = "app.bundle.js";
+    if (preloadSupported) {
+      css.rel = "preload";
+      css.as = "style";
+      css.onload = "this.rel='stylesheet'";
+      js.rel = "preload";
+      js.as = "script";
+    }
+    else {
+      css.rel = "stylesheet";
+    }
+    document.head.appendChild(css);
+    document.head.appendChild(js);
+  </script>
 </head>
 <body>
   <div id="loader"></div>
