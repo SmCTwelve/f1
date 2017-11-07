@@ -88,7 +88,7 @@
     var js = document.createElement('link');
     css.href = "./dist/app.css";
     js.href = "./dist/app.bundle.js";
-    if (preloadSupported) {
+    if (preloadSupported()) {
       css.rel = "preload";
       css.as = "style";
       css.onload = function() {css.rel = "stylesheet"};
