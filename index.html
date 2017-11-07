@@ -91,7 +91,7 @@
     if (preloadSupported) {
       css.rel = "preload";
       css.as = "style";
-      css.onload = function() {this.rel = "stylesheet"};
+      css.onload = function() {css.rel = "stylesheet"};
       js.rel = "preload";
       js.as = "script";
     }
