@@ -7,6 +7,7 @@
   @include dropShadow(big);
   background-color: transparent;
   z-index: 1;
+  cursor: pointer;
 }
 
 .logo-container {
@@ -14,16 +15,6 @@
   z-index: 1;
   background-color: transparent;
   border-radius: 50%;
-}
-
-.team-select {
-  @include setFlex();
-  @include centerItems();
-  width: 100%;
-  margin-top: 100px;
-  .logo {
-    cursor: pointer;
-  }
 }
 
 .nav {
