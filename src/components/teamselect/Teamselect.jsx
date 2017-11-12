@@ -21,7 +21,7 @@ const teams = [
 const TeamSelect = (props) => {
 
   const logos = teams.map( (team, index) =>
-    <Logo team={team} key={index} tab={index} click={props.handleOnClick} />
+    <Logo key={index} team={team} click={props.handleOnClick} {...props} />
   );
 
   return(
