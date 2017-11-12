@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Logo from '../logo/Logo.jsx';
+import {Link} from 'react-router-dom';
 
 /**
  * Nav component to be rendered inside shell container.
@@ -37,17 +38,30 @@ class Nav extends Component {
   }
 
   render() {
-    return(
-      <header className="nav-container">
-        <nav className="nav">
-          {/* Conditionally render Logo */}
-          {this.props.index ? (null) : (<Logo team={this.props.team} />)}
-          <a className="navlink" href="blank">HOME</a>
-          <a className="navlink" href="#info">ABOUT</a>
-          <a className="navlink" href="blank">TEAMS</a>
-        </nav>
-      </header>
-    );
+    if (this.props.index) {
+      // Index page
+      return(
+        <header className="nav-container">
+          <nav className="nav">
+            <Link to="/" className="navlink">HOME</Link>
+            <Link to="/about" className="navlink">ABOUT</Link>
+          </nav>
+        </header>
+      );
+    }
+    // Team page
+    else {
+      return(
+        <header className="nav-container">
+          <nav className="nav">
+            <Logo team={this.props.team} />
+            <Link to="/" className="navlink">HOME</Link>
+            <a className="navlink" href="#info">INFO</a>
+            <a className="navlink" href="#stats">STATS</a>
+          </nav>
+        </header>
+      );
+    }
   }
 }
 
