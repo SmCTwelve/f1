@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import iconFerrari from '../../images/logo-ferr.png';
 import iconRedbull from '../../images/logo-rb.png';
 import iconRenault from '../../images/logo-rs.png';
@@ -50,7 +51,9 @@ const Logo = (props) => {
 
   return(
     <div className="logo-container" role="link" tabIndex={0} onClick={handleClick} onKeyPress={handleClick}>
-      <img className="logo" src={src} alt={team} />
+      <Link to={`/${props.team}`} >
+        <img className="logo" src={src} alt={team} />
+      </Link>
     </div>
   );
 };
