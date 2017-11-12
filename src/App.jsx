@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import Hero from './components/hero/Hero.jsx';
-import Nav from './components/nav/Nav.jsx';
-import TeamSelect from './components/teamselect/Teamselect.jsx';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import SelectTeam from './components/main/Select.jsx';
+import TeamView from './components/main/Team.jsx';
 
 const loader = document.getElementById('loader');
 const root = document.getElementById('root');
@@ -61,38 +61,32 @@ class App extends Component {
   }
 
   render() {
-    // Render view for selected team if not on index.
-    if (!this.state.index) {
-      return(
-        <div>
-          <Nav team={this.state.team} index={this.state.index} />
-          <main id="main">
-            <div className={"hero-container " + this.state.team}>
-              <Hero team={this.state.team} title={this.state.title} />
-            </div>
-            <div id="info" className="info">
-              <div className="content">
-              <h1 className="hdg">{this.state.team}</h1>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro odio reiciendis illum corrupti, dolore esse, laborum, necessitatibus dolorem nostrum officiis quo delectus dolorum quibusdam? Quae maxime commodi expedita dignissimos. Quasi?</p>
-              </div>
-            </div>
-            <div className={"stats " + this.state.team}></div>
-          </main>
-        </div>
-      );
-    }
-    // Render index view and team selection.
-    else {
-      return(
-        <div>
-          <Nav index={this.state.index} />
-          <main id="main">
-            <TeamSelect handleOnClick={this.updateTeam} />
-          </main>
-        </div>
-
-      );
-    }
+    const updateTeam = this.updateTeam;
+    const team = this.state.team;
+    return(
+      <Router>
+        <Switch>
+          {/* Index page */}
+          <Route
+            exact path="/"
+            render={(props) =>
+              <SelectTeam {...props} handleOnClick={updateTeam} />
+            }
+          />
+          {/* Team page */}
+          <Route
+            path={`/${team}`}
+            render={(props) =>
+              <TeamView {...props} team={team} />
+            }
+          />
+          {/* No match */}
+          <Route
+            render={() => <h1>Not Found</h1>}
+          />
+        </Switch>
+      </Router>
+    );
   }
 }
 
