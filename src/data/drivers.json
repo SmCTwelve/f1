@@ -1,0 +1,29 @@
+{
+  "XXX": {
+    "name": "",
+    "no": 0,
+    "wdc": 0,
+    "age": 0,
+    "season": {
+      "points": 0,
+      "wins": 0,
+      "poles": 0,
+      "dnf": 0,
+      "penalties": 0,
+      "components": {
+        "MGU-H": 0,
+        "MGU-K": 0,
+        "TC": 0,
+        "ICE": 0,
+        "ES": 0,
+        "CE": 0
+      }
+    },
+    "career": {
+      "points": 0,
+      "wins": 0,
+      "poles": 0,
+      "length": 0
+    }
+  }
+}

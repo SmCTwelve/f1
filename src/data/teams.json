@@ -7,10 +7,6 @@
       "model": "SF70H",
       "stats": ""
     },
-    "drivers": [
-      "S. Vettel",
-      "K. Raikkonen"
-    ],
     "logo": "./images/logo-ferr.png",
     "colors": {
       "base": "#84071f",
@@ -26,10 +22,6 @@
       "model": "SF70H",
       "stats": ""
     },
-    "drivers": [
-      "C. Sainz",
-      "N. Hulkenberg"
-    ],
     "logo": "./images/logo-rs.png",
     "colors": {
       "base": "#84071f",
@@ -45,10 +37,6 @@
       "model": "RB13",
       "stats": ""
     },
-    "drivers": [
-      "M. Verstappen",
-      "D. Ricciardo"
-    ],
     "logo": "./images/logo-rb.png",
     "colors": {
       "base": "#021e44",
