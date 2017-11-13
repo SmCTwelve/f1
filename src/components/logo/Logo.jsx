@@ -17,7 +17,6 @@ const teamLogos = {
  *
  * Props:
  * `team` -- full team name e.g. <Logo team="williams" />;
- * `click` -- event handler to be called when image is clicked;
  * `tab` -- tab index for accessibility.
  */
 const Logo = (props) => {
@@ -41,16 +40,8 @@ const Logo = (props) => {
       break;
   }
 
-  // Call click event handler if present in props
-  const handleClick = () => {
-    if ('click' in props) {
-      props.click(props.team);
-      console.log("Logo Clicked");
-    }
-  };
-
   return(
-    <div className="logo-container" role="link" tabIndex={0} onClick={handleClick} onKeyPress={handleClick}>
+    <div className="logo-container" role="link" tabIndex={0}>
       <Link to={`/${props.team}`} >
         <img className="logo" src={src} alt={team} />
       </Link>
