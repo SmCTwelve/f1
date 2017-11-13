@@ -21,8 +21,8 @@ const Picture = (props) => {
   return(
     <div className="image-wrapper" style={{maxWidth: props.width, maxHeight: props.height}}>
       <div className="image-container" style={{paddingBottom: + aspect + "%"}}>
-        <img src={props.src} alt={props.alt} id={id} className={className + "hide"}
-        onLoad={(e) => e.target.classList.remove("hide")} />
+        <img src={props.src} alt={props.alt} id={id} className={className} style={{opacity: 0}}
+        onLoad={(e) => e.target.style.opacity = 1}/>
       </div>
     </div>
   );
