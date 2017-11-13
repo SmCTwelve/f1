@@ -16,12 +16,11 @@ const teams = [
  * is set to 'true'. Clicking one of the logos sets the state to 'false' causing the page to re-render with the new
  * content. Pressing the Home link also renders the team selection.
  *
- * Props: `handleOnClick` - function reference to be called when clicked.
  */
 const TeamSelect = (props) => {
 
   const logos = teams.map( (team, index) =>
-    <Logo key={index} team={team} click={props.handleOnClick} {...props} />
+    <Logo key={index} team={team} {...props} />
   );
 
   return(
