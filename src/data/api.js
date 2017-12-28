@@ -11,6 +11,18 @@ const status = (res) => {
   }
 }
 
+// #################
+// Include file system module
+// Add functions to create, update, delete and backup 'stats.json'
+//    E.g. create a new file from scratch with the drivers of the new season,
+//    backing up the old file.
+// Start with blank JSON object and add each constructor as keys.
+//   For each constructor query API for their drivers and add them as children to constructor
+//     For each driver child insert the relevant keys and values using the functions below
+// Additional keys and functionality from other sources (e.g. finding penalty data)
+// Functions below should RETURN data in normal format to be passed to other functions if possible
+// Consider api.js for requests and data.js for management
+
 const json = (res) => res.json();
 const error = (err) => console.log("Request failed", err);
 const log = (data) => console.log("Result: ", data);
