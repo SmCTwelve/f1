@@ -5,7 +5,7 @@ Challenges
 
 ### Display front-end data using responsive components
 
-### Process and update data dynamically
+### Fetch, process and update data
 
 ### Separation of concerns (MVC)
 
@@ -59,10 +59,14 @@ React components
   - Scheduling processing with lifecycle methods.
 
 AJAX and asynchronous rendering
+  - Using JavaScript Fetch API with asynchronous Promises
 
 Working with API data sources
 
-Node.js/Python back-end applications
+Node.js
+  - Working with file system
+  - Creating command line interface
+  - Exporting modules
 
 Implementing a database
 
