@@ -1,6 +1,10 @@
 const fetch = require("node-fetch");
 const api = "https://ergast.com/api/f1/";
 
+/**
+ * Check response status for errors.
+ * @param {*} res Status code
+ */
 const status = (res) => {
   if (res.status !== 200) {
     console.log("Request error:" + res.status);
@@ -11,50 +15,36 @@ const status = (res) => {
   }
 }
 
-// #################
-// Include file system module
-// Add functions to create, update, delete and backup 'stats.json'
-//    E.g. create a new file from scratch with the drivers of the new season,
-//    backing up the old file.
-// Start with blank JSON object and add each constructor as keys.
-//   For each constructor query API for their drivers and add them as children to constructor
-//     For each driver child insert the relevant keys and values using the functions below
-// Additional keys and functionality from other sources (e.g. finding penalty data)
-// Functions below should RETURN data in normal format to be passed to other functions if possible
-// Consider api.js for requests and data.js for management
-
+// Utility functions
 const json = (res) => res.json();
 const error = (err) => console.log("Request failed", err);
 const log = (data) => console.log("Result: ", data);
 
 /**
- * Get the wins for a driver. Filter results to include the season and round, if given.
+ * Get the wins for a driver. Filter results to include the season, if given.
  * Takes an object with the parameter to include, only driver is required.
  *
  * E.g. to get all wins for Alonso in 2007 (round not specified):
- *
- * `getDriverWins( {driver: 'alonso', season: 2007} )`
- *
  * @param {*} driver Driver id e.g. 'alonso' (Required)
  * @param {*} season Season to filter e.g. 2008 or 'current'
- * @param {*} round Race in the season
+ * @returns {Promise}
  */
-const getWins = ({driver, season=null, round=null}) => {
+const getWins = (driver, season=null) => {
+  console.log(`Getting wins for ${driver}...`);
   let url = api;
-  // Round and season
-  if (round !== null && season !== null) {
-    url += `${season}/${round}/drivers/${driver}/results/1`;
-  }
-  // Season only
-  else if (season !== null) {
+  // Season given
+  if (season !== null) {
     url += `${season}/drivers/${driver}/results/1`;
   }
   // Driver only, all seasons
   else {
     url += `drivers/${driver}/results/1`;
   }
-  fetch(url + '.json')
-      .then(status).then(json).then(log).catch(error);
+  return fetch(url + '.json')
+      .then(status)
+      .then(json)
+      .then( (data) => data.MRData.total)
+      .catch(error);
 }
 
 /**
@@ -63,8 +53,10 @@ const getWins = ({driver, season=null, round=null}) => {
  *
  * @param {*} driver Driver id e.g. 'alonso'
  * @param {*} season The season to filter (optional)
+ * @returns {Promise}
  */
 const getPoles = (driver, season=null) => {
+  console.log(`Getting poles for ${driver}...`);
   let url = api;
   if (season !== null) {
     url += `${season}/drivers/${driver}/qualifying/1`;
@@ -72,8 +64,11 @@ const getPoles = (driver, season=null) => {
   else {
     url += `drivers/${driver}/qualifying/1`;
   }
-  fetch(url + '.json')
-    .then(status).then(json).then(log).catch(error);
+  return fetch(url + '.json')
+    .then(status)
+    .then(json)
+    .then( (data) => data.MRData.total)
+    .catch(error);
 }
 
 /**
@@ -81,8 +76,10 @@ const getPoles = (driver, season=null) => {
  *
  * @param {*} name The driver or constructor name
  * @param {boolean} constructor If the search is for constructors standings
+ * @returns {Promise}
  */
 const getPoints = (name, constructor=false) => {
+  console.log(`Getting points for ${name}...`);
   let url = api;
   if (constructor) {
     url += `current/constructors/${name}/constructorStandings`;
@@ -90,26 +87,92 @@ const getPoints = (name, constructor=false) => {
   else {
     url += `current/drivers/${name}/driverStandings`;
   }
-  fetch(url + '.json')
-    .then(status).then(json).then(log).catch(error);
+  return fetch(url + '.json')
+    .then(status)
+    .then(json)
+    .then( (data) => {
+      const key = constructor ? 'ConstructorStandings' : 'DriverStandings';
+      const standings = data.MRData.StandingsTable.StandingsLists[0];
+      return {
+        points: standings[key][0].points,
+        pos: standings[key][0].position
+      };
+    })
+    .catch(error);
 }
 
 /**
- * Returns information about a driver or a constructor such as code, dob, full name.
- *
- * @param {*} name The driver or constructor name to search e.g. 'alonso'/'mclaren'
- * @param {boolean} constructor The name is a constructor
+ * Returns information about a driver such as code, dob, full name as an object.
+ * @param {*} driver The driver or constructor name to search e.g. 'alonso'/'mclaren'
+ * @returns {Promise}
  */
-const getInfo = (name, constructor=false) => {
+const getInfo = (driver) => {
+  console.log(`Getting info for ${driver}...`);
+  const url = api + `drivers/${driver}`;
+  return fetch(url + '.json')
+    .then(status)
+    .then(json)
+    .then( (data) => {
+      const info = data.MRData.DriverTable.Drivers[0];
+      const age = (dob) => {
+        const then = new Date(dob);
+        const now = new Date();
+        return now.getFullYear() - then.getFullYear();
+      };
+      return {
+        driverId: info.driverId,
+        no: info.permanentNumber,
+        code: info.code,
+        firstName: info.givenName,
+        lastName: info.familyName,
+        age: age(info.dateOfBirth),
+        nationality: info.nationality
+      };
+    })
+    .catch(error);
+}
+
+/**
+ * Returns a Promise with all constructors for the given season.
+ * @param {*} season The season to filter
+ * @returns {Promise}
+ */
+const getConstructors = (season) => {
+  console.log('Getting constructors...');
   let url = api;
-  if (constructor) {
-    url += `constructors/${name}`;
+  if (season !== null) {
+    url += `${season}/constructors`;
   }
   else {
-    url += `drivers/${name}`;
+    url += `constructors`;
   }
-  fetch(url + '.json')
-    .then(status).then(json).then(log).catch(error);
+  return fetch(url + '.json')
+    .then(status)
+    .then(json)
+    .then( (data) => data.MRData.ConstructorTable.Constructors.map( item => item.constructorId))
+    .catch(error);
+}
+
+/**
+ * Returns a Promise with all drivers for the given season and who drive for the constructor (if given).
+ * @param {*} season The season to filter
+ * @param {*} constructor The constructor to filter (Optional)
+ * @returns {Promise}
+ */
+const getDrivers = (season, constructor=null) => {
+  console.log('Getting drivers...');
+  let url = api;
+  if (constructor !== null) {
+    url += `${season}/constructors/${constructor}/drivers`;
+  }
+  else {
+    url += `${season}/drivers`;
+  }
+  return fetch(url + '.json')
+    .then(status)
+    .then(json)
+    .then( (data) => data.MRData.DriverTable.Drivers.map( item => item.driverId))
+    .catch(error);
 }
 
 /**
@@ -118,8 +181,10 @@ const getInfo = (name, constructor=false) => {
  *
  * @param {*} driver The driver name
  * @param {*} season The season to filter
+ * @returns {Promise}
  */
 const getDNF = (driver, season=null) => {
+  console.log(`Getting DNFs for ${driver}...`);
   let url = api;
   if (season !== null) {
     url += `${season}/drivers/${driver}/status`;
@@ -127,8 +192,17 @@ const getDNF = (driver, season=null) => {
   else {
     url += `drivers/${driver}/status`;
   }
-  fetch(url + '.json')
-    .then(status).then(json).then(log).catch(error);
+  return fetch(url + '.json')
+    .then(status)
+    .then(json)
+    .then( (data) => {
+      const regex = /\+\d{1,}/;
+      const status = data.MRData.StatusTable.Status;
+      let result = status.filter( item => !regex.test(item.status) && item.status !== 'Finished');
+      result = result.reduce( (prev, current) => prev + Number(current.count), 0);
+      return result;
+    })
+    .catch(error);
 }
 
 module.exports = {
@@ -136,5 +210,7 @@ module.exports = {
   getInfo,
   getDNF,
   getPoles,
-  getPoints
+  getPoints,
+  getConstructors,
+  getDrivers
 };
