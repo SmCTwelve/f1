@@ -27,7 +27,7 @@ const log = (data) => console.log("Result: ", data);
  * E.g. to get all wins for Alonso in 2007 (round not specified):
  * @param {*} driver Driver id e.g. 'alonso' (Required)
  * @param {*} season Season to filter e.g. 2008 or 'current'
- * @returns {Promise}
+ * @returns {Promise<number>}
  */
 const getWins = (driver, season=null) => {
   console.log(`Getting wins for ${driver}...`);
@@ -53,7 +53,7 @@ const getWins = (driver, season=null) => {
  *
  * @param {*} driver Driver id e.g. 'alonso'
  * @param {*} season The season to filter (optional)
- * @returns {Promise}
+ * @returns {Promise<number>}
  */
 const getPoles = (driver, season=null) => {
   console.log(`Getting poles for ${driver}...`);
@@ -135,7 +135,7 @@ const getInfo = (driver) => {
 /**
  * Returns a Promise with all constructors for the given season.
  * @param {*} season The season to filter
- * @returns {Promise}
+ * @returns {Promise<Array>}
  */
 const getConstructors = (season) => {
   console.log('Getting constructors...');
@@ -157,7 +157,7 @@ const getConstructors = (season) => {
  * Returns a Promise with all drivers for the given season and who drive for the constructor (if given).
  * @param {*} season The season to filter
  * @param {*} constructor The constructor to filter (Optional)
- * @returns {Promise}
+ * @returns {Promise<Array>}
  */
 const getDrivers = (season, constructor=null) => {
   console.log('Getting drivers...');
@@ -181,7 +181,7 @@ const getDrivers = (season, constructor=null) => {
  *
  * @param {*} driver The driver name
  * @param {*} season The season to filter
- * @returns {Promise}
+ * @returns {Promise<number>}
  */
 const getDNF = (driver, season=null) => {
   console.log(`Getting DNFs for ${driver}...`);
