@@ -1,108 +1,35 @@
-> Formula 1 Factoid Page
+> Formula 1 Statistics 
 
-Requirements
-============
+A React web application displaying statistical data for Formula 1 teams and drivers. 
 
--   Historical and factual information about Formula 1 teams (Static)
+https://smctwelve.github.io/f1/
 
--   Updated statistics in charts and graphs (Dynamic)
+### About
 
--   Attractive mobile-friendly responsive design
+Features a responsive mobile design with Progressive Web App functionality to dynamically show statistical information about F1 teams - such as championship standings, driver comparisons of poles, wins, points and penalty accumulation as data visualisations. 
 
--   Maximise use of space and layout
+Built using dynamic React Components and ChartJS and styled with Sass, served as a bundled JS file using Webpack.  
 
--   Animations on scroll for charts and graphics
+Data is sourced from [Ergast API](http://ergast.com/mrd/) and processed using a NodeJS back-end serving compressed JSON to be cached by the client for chart rendering. Data can be updated manually via the NodeJS interface using commands, including selectively updating only stats which have changed, e.g. fetching driver stats after a race weekend. Automatic updating based on race schedule via a hosted server is a planned implementation. 
 
--   Fast initial page load with asynchronous rendering
+### Installation
 
+The application, including the development environment and all dependencies, may be installed locally by forking or downloading the repository. Then, in the project root run:  
 
-    **Data:**
+`npm install` 
 
--   Google shows table with F1 results
+Requires a [NodeJS](https://nodejs.org/en/) installation. 
 
-    -   Trend graph showing lap time deltas between teammates
+### Usage
 
-        -   Expand with options to select each driver/team to compare
+A basic NodeJS API is included to fetch and update the stats. The following commands should be run from the `./src/data/api` directory. 
 
-    -   Interactive section showing engine component usage with expanded
-        information when selecting a component to view
+`node data <create | -c>`
 
-    -   Graph showing penalty accumulation
+Backs up the existing `stats.json` file in the root `/data` directory if it exists, then fetches all team and driver data from scratch, creating a new file. This involves making many requests for the Ergast API and processing the results and should be used only when all data needs to be updated.  
 
-    -   Display points for team in WCC, and points for each driver in WDC
+`node data <update | -u [all|results]>`
 
-        -   Comparison graph showing points between teammates
+`update all` or `-a` is similar to `create` but only fetches data for each team such as driver stats, not the team data itself as this is unlikely to change. 
 
-            -   Expand with option to compare points with any team/driver
-
-    -   Analysis of practise and qualifying times (long runs, average pace)
-
-    -   Team pit stop efficiency
-
-    -   Specs for the car
-
-Implementation
-===============
-
-1.  Obtain and organise static assets (high res images, fonts, colour theme
-    etc.)
-
-2.  Initial responsive page structure with flexbox.
-
-    1.  Define content divisions, image placement and navigation.
-
-3.  Implement static shell
-
-4.  Initial style pass
-
-    1.  Colour themes suited to each team
-
-    2.  Minimalist design using responsive material design practices
-
-    3.  Specify and organise reusable code (e.g. SASS mixins)
-
-    4.  Parallax scrolling
-
-5.  Draw charts and graphs on front-end (Static data)
-
-    1.  Define JS functions to retrieve, process and display
-
-    2.  Specify reusable components
-
-        1.  Encapsulate each component allowing changes to be made from the UI
-
-        2.  Follow Model-View-Controller
-
-            1.  Model is the raw data
-
-            2.  View is the web UI components
-
-            3.  Controller interfaces with the view/model to get and update
-                values, without the view and model interacting directly – i.e.
-                controller is the coordinating object
-
-    3.  Implement Chart.js to visualise data in responsive components
-
-6.  Animate content
-
-7.  Admin interface to edit data
-
-    1.  Web UI with forms to update charts manually
-
-    2.  Implement some form of CMS to handle changes with secure credentials
-
-    3.  Send changes to required component
-
-8.  Handle dynamic data and back-end (Node.js or Python)
-
-    1.  Create database
-
-    2.  Store and retrieve data, fetch from API sources and send updates to
-        front-end
-
-    3.  Automate retrieval and processing
-
-Prototypes
-==========
-
-See /docs/Specifiation.md
+`update results` or `-r` only fetches stats for each driver within a team, such as points, wins and poles. It does not fetch the teams or drivers themselves, only replaces existing values. 
