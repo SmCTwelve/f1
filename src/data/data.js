@@ -27,12 +27,24 @@ const main = (args) => {
  * @returns {Promise<Array>} Promise containing an array of constructors
  */
 const addConstructors = (data, season) => {
+  let constructors;
+  console.log("Getting constructors...");
   // return array of constructors
   return api.getConstructors(season)
-    .then( (constructors) => {
-      console.log("Getting constructors...");
-      constructors.forEach( (constructor) => {
-        data[constructor] = {};
+    .then( (res) => {
+      // Get points and WCC for each constructor, return array of results
+      constructors = res;
+      return Promise.all(res.map( (constructor) => {
+        return api.getPoints(constructor, true);
+      }));
+    })
+    .then( (res) => {
+      // Assign each name, points, and wcc position to data
+      constructors.forEach( (constructor, index) => {
+        data[constructor] = {
+          points: res[index].points,
+          wcc: res[index].pos
+        };
       });
       return constructors;
     });
@@ -53,6 +65,7 @@ const addConstructors = (data, season) => {
  * @returns {Promise} Empty promise
  */
 const addDrivers = (data, constructors, season) => {
+  let res;
   // map constructors array to getDriver() results
   // returns 2d array of driver groups per constructor: [[driver1, driver2], [driver3, driver4]]
   console.log("Getting drivers...");
@@ -60,6 +73,7 @@ const addDrivers = (data, constructors, season) => {
     return api.getDrivers(season, constructor);
   }))
   .then( (drivers) => {
+    res = drivers;
     // map each driver in each array with getInfo() results
     // returns 2d array of promises: [[promise1, promise2], [promise3, promise4]]
     return Promise.all(drivers.map( (array) => {
@@ -80,6 +94,7 @@ const addDrivers = (data, constructors, season) => {
     constructors.forEach( (constructor, index) => {
       data[constructor].drivers = info[index];
     });
+    return res;
   });
 };
 
