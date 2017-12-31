@@ -19,6 +19,11 @@ const status = (res) => {
 const json = (res) => res.json();
 const error = (err) => console.log("Request failed", err);
 const log = (data) => console.log("Result: ", data);
+const age = (dob) => {
+  const then = new Date(dob);
+  const now = new Date();
+  return now.getFullYear() - then.getFullYear();
+};
 
 /**
  * Get the wins for a driver. Filter results to include the season, if given.
@@ -100,20 +105,25 @@ const getPoints = (name, constructor=false) => {
 /**
  * Returns information about a driver such as code, dob, full name as an object.
  * @param {*} driver The driver or constructor name to search e.g. 'alonso'/'mclaren'
+ * @param {*} season The season to filter
  * @returns {Promise}
  */
-const getInfo = (driver) => {
+const getInfo = (driver, season) => {
+  let info;
   const url = api + `drivers/${driver}`;
   return fetch(url + '.json')
     .then(status)
     .then(json)
     .then( (data) => {
-      const info = data.MRData.DriverTable.Drivers[0];
-      const age = (dob) => {
-        const then = new Date(dob);
-        const now = new Date();
-        return now.getFullYear() - then.getFullYear();
-      };
+      info = data.MRData.DriverTable.Drivers[0];
+      return Promise.all([
+        getWins(driver, season),
+        getPoles(driver, season),
+        getPoints(driver),
+        getDNF(driver, season)
+      ]);
+    })
+    .then( (results) => {
       return {
         id: info.driverId,
         no: info.permanentNumber,
@@ -121,11 +131,18 @@ const getInfo = (driver) => {
         firstName: info.givenName,
         lastName: info.familyName,
         age: age(info.dateOfBirth),
-        nationality: info.nationality
+        nationality: info.nationality,
+        stats: {
+          wins: results[0],
+          poles: results[1],
+          points: results[2].points,
+          wdc: results[2].pos,
+          dnf: results[4]
+        }
       };
     })
     .catch(error);
-}
+};
 
 /**
  * Returns a Promise with all constructors for the given season.
