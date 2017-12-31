@@ -28,10 +28,10 @@ A basic NodeJS API is included to fetch and update the stats. The following comm
 
 `node data <create | -c>`
 
-Backs up the existing `stats.json` file in the root `/data` directory if it exists, then fetches all team and driver data from scratch, creating a new file. This involves making many requests for the Ergast API and processing the results and should be used only when all data needs to be updated.  
+Backs up the existing `stats.json` file in the root `/data` directory if it exists, then fetches all team and driver data from scratch, creating a new file. This involves making many requests to the Ergast API and processing the results and should be used only when all data needs to be updated.  
 
 `node data <update | -u [all|results]>`
 
-`update all` or `-a` is similar to `create` but only fetches data for each team such as driver stats, not the team data itself as this is unlikely to change. 
+`update all` or `-a` is similar to `create` but only fetches data for each team such as driver stats, not the team data itself as this is unlikely to change and doesn't make a new file. 
 
 `update results` or `-r` only fetches stats for each driver within a team, such as points, wins and poles. It does not fetch the teams or drivers themselves, only replaces existing values. 
