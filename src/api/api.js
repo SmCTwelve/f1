@@ -74,16 +74,16 @@ const getPoles = (driver, season=null) => {
 }
 
 /**
- * Returns the points and WDC/WCC position of the driver/constructor for the season.
+ * Returns the points and WDC/WCC position of the driver/team for the season.
  *
- * @param {*} name The driver or constructor name
- * @param {boolean} constructor If the search is for constructors standings
+ * @param {*} name The driver or team name
+ * @param {boolean} team If the search is for teams standings
  * @returns {Promise}
  */
-const getPoints = (name, constructor=false) => {
+const getPoints = (name, team=false) => {
   let url = api;
-  if (constructor) {
-    url += `current/constructors/${name}/constructorStandings`;
+  if (team) {
+    url += `current/teams/${name}/teamStandings`;
   }
   else {
     url += `current/drivers/${name}/driverStandings`;
@@ -92,7 +92,7 @@ const getPoints = (name, constructor=false) => {
     .then(status)
     .then(json)
     .then( (data) => {
-      const key = constructor ? 'ConstructorStandings' : 'DriverStandings';
+      const key = team ? 'teamStandings' : 'DriverStandings';
       const standings = data.MRData.StandingsTable.StandingsLists[0];
       return {
         points: standings[key][0].points,
@@ -104,7 +104,7 @@ const getPoints = (name, constructor=false) => {
 
 /**
  * Returns information about a driver such as code, dob, full name as an object.
- * @param {*} driver The driver or constructor name to search e.g. 'alonso'/'mclaren'
+ * @param {*} driver The driver or team name to search e.g. 'alonso'/'mclaren'
  * @param {*} season The season to filter
  * @returns {Promise}
  */
@@ -145,35 +145,35 @@ const getInfo = (driver, season) => {
 };
 
 /**
- * Returns a Promise with all constructors for the given season.
+ * Returns a Promise with all teams for the given season.
  * @param {*} season The season to filter
  * @returns {Promise<Array>}
  */
-const getConstructors = (season) => {
+const getteams = (season) => {
   let url = api;
   if (season !== null) {
-    url += `${season}/constructors`;
+    url += `${season}/teams`;
   }
   else {
-    url += `constructors`;
+    url += `teams`;
   }
   return fetch(url + '.json')
     .then(status)
     .then(json)
-    .then( (data) => data.MRData.ConstructorTable.Constructors.map( item => item.constructorId))
+    .then( (data) => data.MRData.teamTable.teams.map( item => item.teamId))
     .catch(error);
 }
 
 /**
- * Returns a Promise with all drivers for the given season and who drive for the constructor (if given).
+ * Returns a Promise with all drivers for the given season and who drive for the team (if given).
  * @param {*} season The season to filter
- * @param {*} constructor The constructor to filter (Optional)
+ * @param {*} team The team to filter (Optional)
  * @returns {Promise<Array>}
  */
-const getDrivers = (season, constructor=null) => {
+const getDrivers = (season, team=null) => {
   let url = api;
-  if (constructor !== null) {
-    url += `${season}/constructors/${constructor}/drivers`;
+  if (team !== null) {
+    url += `${season}/teams/${team}/drivers`;
   }
   else {
     url += `${season}/drivers`;
@@ -220,6 +220,6 @@ module.exports = {
   getDNF,
   getPoles,
   getPoints,
-  getConstructors,
+  getteams,
   getDrivers
 };

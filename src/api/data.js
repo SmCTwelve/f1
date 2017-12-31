@@ -20,57 +20,57 @@ const main = (args) => {
 };
 
 /**
- * Get an array of constructors for the season and add them to the data object.
+ * Get an array of teams for the season and add them to the data object.
  *
  * @param {Object} data Global data object
  * @param {String|Number} season Season to filter
- * @returns {Promise<Array>} Promise containing an array of constructors
+ * @returns {Promise<Array>} Promise containing an array of teams
  */
-const addConstructors = (data, season) => {
-  let constructors;
-  console.log("Getting constructors...");
-  // return array of constructors
-  return api.getConstructors(season)
+const addteams = (data, season) => {
+  let teams;
+  console.log("Getting teams...");
+  // return array of teams
+  return api.getteams(season)
     .then( (res) => {
-      // Get points and WCC for each constructor, return array of results
-      constructors = res;
-      return Promise.all(res.map( (constructor) => {
-        return api.getPoints(constructor, true);
+      // Get points and WCC for each team, return array of results
+      teams = res;
+      return Promise.all(res.map( (team) => {
+        return api.getPoints(team, true);
       }));
     })
     .then( (res) => {
       // Assign each name, points, and wcc position to data
-      constructors.forEach( (constructor, index) => {
-        data[constructor] = {
+      teams.forEach( (team, index) => {
+        data[team] = {
           points: res[index].points,
           wcc: res[index].pos
         };
       });
-      return constructors;
+      return teams;
     });
 };
 
 /**
- * For each constructor add the driver info.
+ * For each team add the driver info.
  *
- * Fetch the drivers belonging to each constructor using Promise.all() to return a
+ * Fetch the drivers belonging to each team using Promise.all() to return a
  * 2d-array of drivers. Then map each driver array to a 2d-array of Promises.
  *
  * Resolve each inner Promise array using Promise.all() to yield their values as a 2d-array
- * of driver objects. Finally, for each constructor, insert the driver info.
+ * of driver objects. Finally, for each team, insert the driver info.
  *
  * @param {Object} data Global data object to modify
- * @param {Array} constructors Array of constructors
+ * @param {Array} teams Array of teams
  * @param {String|Number} season Season to filter
- * @returns {Promise} Empty promise
+ * @returns {Promise[][]} Array of driver arrays
  */
-const addDrivers = (data, constructors, season) => {
+const addDrivers = (data, teams, season) => {
   let res;
-  // map constructors array to getDriver() results
-  // returns 2d array of driver groups per constructor: [[driver1, driver2], [driver3, driver4]]
+  // map teams array to getDriver() results
+  // returns 2d array of driver groups per team: [[driver1, driver2], [driver3, driver4]]
   console.log("Getting drivers...");
-  return Promise.all(constructors.map( (constructor) => {
-    return api.getDrivers(season, constructor);
+  return Promise.all(teams.map( (team) => {
+    return api.getDrivers(season, team);
   }))
   .then( (drivers) => {
     res = drivers;
@@ -90,9 +90,9 @@ const addDrivers = (data, constructors, season) => {
     }));
   })
   .then( (info) => {
-    // add the driver info for each constructor to the data object
-    constructors.forEach( (constructor, index) => {
-      data[constructor].drivers = info[index];
+    // add the driver info for each team to the data object
+    teams.forEach( (team, index) => {
+      data[team].drivers = info[index];
     });
     return res;
   });
@@ -106,8 +106,8 @@ const addDrivers = (data, constructors, season) => {
  * @returns {Promise} Data object
  */
 const addData = (season) => {
-  return addConstructors(data, season)
-    .then( (constructors) => addDrivers(data, constructors, season))
+  return addteams(data, season)
+    .then( (teams) => addDrivers(data, teams, season))
     .then( () => {
       console.log("Done.");
       console.log(data);
@@ -126,12 +126,12 @@ const create = () => {
   addData("current")
     .then(data => {
       try {
-        fs.renameSync("./stats.json", "./stats.json.bak");
+        fs.renameSync("../../data/stats.json", "../../data/stats.json.bak");
       }
       catch (e) {
         console.log("File doesn't exist, will not be backed up.");
       }
-      fs.writeFile("./stats.json", JSON.stringify(data), (err) => {
+      fs.writeFile("../../data/stats.json", JSON.stringify(data), (err) => {
         if (err) throw err;
       });
     });
@@ -149,7 +149,7 @@ module.exports = {
 // Will require refactoring, e.g. addDrivers currently does all the work,
 // needs to be split into seperate functions e.g. getStats whilst keeping
 // promise chain intact.
-// Consider placing 'drivers' and 'constructors' globally in storage to avoid
+// Consider placing 'drivers' and 'teams' globally in storage to avoid
 // requesting and processing them when they don't need updated.
 
 main(process.argv[2]);
