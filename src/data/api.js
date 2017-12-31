@@ -24,13 +24,11 @@ const log = (data) => console.log("Result: ", data);
  * Get the wins for a driver. Filter results to include the season, if given.
  * Takes an object with the parameter to include, only driver is required.
  *
- * E.g. to get all wins for Alonso in 2007 (round not specified):
  * @param {*} driver Driver id e.g. 'alonso' (Required)
  * @param {*} season Season to filter e.g. 2008 or 'current'
  * @returns {Promise<number>}
  */
 const getWins = (driver, season=null) => {
-  console.log(`Getting wins for ${driver}...`);
   let url = api;
   // Season given
   if (season !== null) {
@@ -56,7 +54,6 @@ const getWins = (driver, season=null) => {
  * @returns {Promise<number>}
  */
 const getPoles = (driver, season=null) => {
-  console.log(`Getting poles for ${driver}...`);
   let url = api;
   if (season !== null) {
     url += `${season}/drivers/${driver}/qualifying/1`;
@@ -79,7 +76,6 @@ const getPoles = (driver, season=null) => {
  * @returns {Promise}
  */
 const getPoints = (name, constructor=false) => {
-  console.log(`Getting points for ${name}...`);
   let url = api;
   if (constructor) {
     url += `current/constructors/${name}/constructorStandings`;
@@ -107,7 +103,6 @@ const getPoints = (name, constructor=false) => {
  * @returns {Promise}
  */
 const getInfo = (driver) => {
-  console.log(`Getting info for ${driver}...`);
   const url = api + `drivers/${driver}`;
   return fetch(url + '.json')
     .then(status)
@@ -120,7 +115,7 @@ const getInfo = (driver) => {
         return now.getFullYear() - then.getFullYear();
       };
       return {
-        driverId: info.driverId,
+        id: info.driverId,
         no: info.permanentNumber,
         code: info.code,
         firstName: info.givenName,
@@ -138,7 +133,6 @@ const getInfo = (driver) => {
  * @returns {Promise<Array>}
  */
 const getConstructors = (season) => {
-  console.log('Getting constructors...');
   let url = api;
   if (season !== null) {
     url += `${season}/constructors`;
@@ -160,7 +154,6 @@ const getConstructors = (season) => {
  * @returns {Promise<Array>}
  */
 const getDrivers = (season, constructor=null) => {
-  console.log('Getting drivers...');
   let url = api;
   if (constructor !== null) {
     url += `${season}/constructors/${constructor}/drivers`;
@@ -184,7 +177,6 @@ const getDrivers = (season, constructor=null) => {
  * @returns {Promise<number>}
  */
 const getDNF = (driver, season=null) => {
-  console.log(`Getting DNFs for ${driver}...`);
   let url = api;
   if (season !== null) {
     url += `${season}/drivers/${driver}/status`;
