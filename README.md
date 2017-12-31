@@ -20,6 +20,8 @@ The application, including the development environment and all dependencies, may
 
 Requires a [NodeJS](https://nodejs.org/en/) installation. 
 
+After install the Webpack Dev Server can be started with `npm start`. 
+
 ### Usage
 
 A basic NodeJS API is included to fetch and update the stats. The following commands should be run from the `./src/data/api` directory. 
