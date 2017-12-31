@@ -141,4 +141,15 @@ module.exports = {
   main
 };
 
+// ##########################
+// TO DO
+// Add update() functionality which takes params e.g.
+//  'all' updates everything - intensive, inefficient
+//  'd_stats' updates only the stats for each driver
+// Will require refactoring, e.g. addDrivers currently does all the work,
+// needs to be split into seperate functions e.g. getStats whilst keeping
+// promise chain intact.
+// Consider placing 'drivers' and 'constructors' globally in storage to avoid
+// requesting and processing them when they don't need updated.
+
 main(process.argv[2]);
