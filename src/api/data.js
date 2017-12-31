@@ -123,7 +123,7 @@ const addData = (season) => {
  * application and served to clients.
  */
 const create = () => {
-  addData("current")
+  addData(2017)
     .then(data => {
       try {
         fs.renameSync("../../data/stats.json", "../../data/stats.json.bak");
@@ -151,5 +151,7 @@ module.exports = {
 // promise chain intact.
 // Consider placing 'drivers' and 'teams' globally in storage to avoid
 // requesting and processing them when they don't need updated.
+
+// Get finish position for each race per driver to plot line graph showing race position trends accross season.
 
 main(process.argv[2]);
