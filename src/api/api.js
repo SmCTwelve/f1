@@ -137,7 +137,7 @@ const getInfo = (driver, season) => {
           poles: results[1],
           points: results[2].points,
           wdc: results[2].pos,
-          dnf: results[4]
+          dnf: results[3]
         }
       };
     })
