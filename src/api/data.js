@@ -1,6 +1,21 @@
 const fs = require("fs");
 const api = require("./api.js");
 
+
+// ##########################
+// TO DO
+// Add update() functionality which takes params e.g.
+//  'all' updates everything - intensive, inefficient
+//  'd_stats' updates only the stats for each driver
+// Will require refactoring, e.g. addDrivers currently does all the work,
+// needs to be split into seperate functions e.g. getStats whilst keeping
+// promise chain intact.
+// Consider placing 'drivers' and 'teams' globally in storage to avoid
+// requesting and processing them when they don't need updated.
+// Add team and driver colours to object
+// Add driver image url's to object
+
+
 // Global data object to be modifed and written to JSON
 let data = {};
 
@@ -140,18 +155,5 @@ const create = () => {
 module.exports = {
   main
 };
-
-// ##########################
-// TO DO
-// Add update() functionality which takes params e.g.
-//  'all' updates everything - intensive, inefficient
-//  'd_stats' updates only the stats for each driver
-// Will require refactoring, e.g. addDrivers currently does all the work,
-// needs to be split into seperate functions e.g. getStats whilst keeping
-// promise chain intact.
-// Consider placing 'drivers' and 'teams' globally in storage to avoid
-// requesting and processing them when they don't need updated.
-
-// Get finish position for each race per driver to plot line graph showing race position trends accross season.
 
 main(process.argv[2]);
