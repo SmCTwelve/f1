@@ -1,6 +1,13 @@
 const fetch = require("node-fetch");
 const api = "https://ergast.com/api/f1/";
 
+// ###############
+// Get finish position for each race per driver to
+// plot line graph showing race position trends accross season.
+// Get total WDC championships per driver (total results from driverstandings/1 query)
+// Get engine component usage from differnt API
+
+
 /**
  * Check response status for errors.
  * @param {*} res Status code
