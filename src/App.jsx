@@ -24,8 +24,24 @@ class App extends Component {
 
     // State:
     this.state = {
+      data: null
     };
     this.loader = this.loader.bind(this);
+    this.getData = this.getData.bind(this);
+
+    this.getData();
+  }
+
+  getData() {
+    fetch(
+      'https://raw.githubusercontent.com/SmCTwelve/f1/master/data/stats.json'
+    )
+    .then( (res) => res.status !== 200 ?
+      Promise.reject(res.status + res.statusText) : Promise.resolve(res))
+    .then( (res) => res.json())
+    .then( (res) => this.setState({data: res}))
+    .then( () => console.log("Stats fetch complete."))
+    .catch( (err) => console.log(err));
   }
 
   loader(show) {
@@ -43,20 +59,23 @@ class App extends Component {
     return(
       <Router history={hashHistory}>
         <Switch>
-          {/* Index page */}
           <Route
             exact path="/"
             render={(props) =>
               <SelectTeam {...props} load={this.loader} />
             }
           />
-          {/* Team page */}
           <Route
             path={"/:team"}
             render={(props) => {
                 const team = props.match.params.team;
+                // Render nothing (keep loader) if fetch not complete
+                if (!this.state.data) {
+                  return null;
+                }
+                // Render page for team if match, else redirect to home
                 if (this.teams.includes(team)) {
-                  return <TeamView {...props} team={team} load={this.loader} />
+                  return <TeamView {...props} team={team} data={this.state.data} load={this.loader} />
                 }
                 else {
                   return <Redirect to="/" />
