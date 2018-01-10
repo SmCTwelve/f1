@@ -5,12 +5,12 @@ import { driverPoleVsWins } from './data.js';
 const options = {
   scales: {
     yAxes: [{
-      ticks: {
-        beginAtZero: true
-      },
       gridLines: {display: false}
     }],
     xAxes: [{
+      ticks: {
+        beginAtZero: true
+      },
       gridLines: {display: false}
     }]
   },
@@ -25,7 +25,7 @@ const options = {
 const PoleWinChart = (props) => {
   console.log(props.driver);
   const chartData = driverPoleVsWins(props.driver);
-  return <HorizontalBar data={chartData} />
+  return <HorizontalBar data={chartData} options={options} />
 }
 
 export default PoleWinChart;
