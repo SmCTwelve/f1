@@ -12,7 +12,12 @@ body {
   font-family: 'Raleway', sans-serif;
 }
 
-// Responsive container which reserves space before load
+// Wrapper fills parent 100%, set max-width on component to original image
+.image-wrapper {
+  width: 100%;
+}
+
+// Responsive container which reserves space with padding before load
 .image-container {
   width: 100%;
   height: 0;
@@ -43,11 +48,6 @@ body {
       margin: 0;
       font-size: 1.5rem;
     }
-
-    // Wrapper fills parent, set max-width on component to original image
-    .image-wrapper {
-      width: 100%;
-    }
   }
 }
 
@@ -62,6 +62,37 @@ body {
   @include parallax();
   @include setFlex();
   min-height: 500px;
+
+  .driver-container {
+    @include setFlex();
+    width: 100%;
+    justify-content: center;
+  }
+
+  .driver-card {
+    @include setFlex();
+    max-width: 500px;
+    margin: 5px;
+    padding: 16px;
+
+    .driver-img {
+      width: 200px;
+      height: 250px;
+      background-color: rgba(128, 128, 128, 0.247);
+    }
+
+    .driver-info {
+      @include setFlex();
+      width: 100%;
+      justify-content: space-around;
+
+      ul {
+        list-style: none;
+        line-height: 25px;
+        padding-left: 0px;
+      }
+    }
+  }
 }
 
 // Container to restrict content width and presentation
@@ -83,8 +114,15 @@ body {
 }
 
 // ## TODO
+
+// Add contrast colours for different teams for charts and text
+// Add animated team select dropdown from floating icon hover
+// Explore different chart styles
+// Get lap time data
+// Get component data
+// Get car specs
+// Get engine diagram/images
+
 // Download font and bundle.
 // Different image sizes for different devices.
 // Try <picture> to responsively select appropriate image.
-// Use AJAX requests to fetch main content (team info, stats) from the
-// network asynchronously.
