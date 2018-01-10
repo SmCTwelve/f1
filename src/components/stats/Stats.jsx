@@ -13,8 +13,8 @@ const Stats = (props) => {
   console.log(props.data);
   const teamDrivers = filterDrivers(props.data, props.team);
   return(
-    <div className={`Stats ${props.team}`}>
-      <div>
+    <div className={`stats ${props.team}`}>
+      <div className='driver-container'>
         {
           teamDrivers.map( (driver, index) => {
             return <Driver key={index} driver={driver} />
