@@ -3,8 +3,7 @@ let teams;
 let drivers;
 
 // ##### TO DO #####
-// Consider changing data to total career poles/wins - only the top drivers will have any worthwhile pole/win comparisons for a given season
-// Poles vs Wins horizonal chart
+
 // Total WCC/WDC titles
 // Component penalties polar chart
 // Timing line graphs
@@ -130,7 +129,7 @@ export const driverPoleVsWins = (driver) => {
   const poles = [driver.stats.poles];
   console.log(wins, poles);
   return {
-    labels: ["Wins", "Poles"],
+    labels: [],
     datasets: [
       {
         label: "Wins",
