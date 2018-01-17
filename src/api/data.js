@@ -5,13 +5,20 @@ const api = require("./api.js");
 // ##########################
 // TO DO
 // Add update() functionality which takes params e.g.
+
 //  'all' updates everything - intensive, inefficient
 //  'd_stats' updates only the stats for each driver
+//  '[round]' update results (timings, finish pos...) for specified round,
+//     avoids fetching already known results
+//    (parent values e.g. points, wins, poles, dnf will still need updated)
+
 // Will require refactoring, e.g. addDrivers currently does all the work,
 // needs to be split into seperate functions e.g. getStats whilst keeping
 // promise chain intact.
+
 // Consider placing 'drivers' and 'teams' globally in storage to avoid
 // requesting and processing them when they don't need updated.
+
 // Add team and driver colours to object
 // Add driver image url's to object
 
@@ -20,7 +27,8 @@ const api = require("./api.js");
 let data = {};
 
 /**
- * Usage: `node data <[create[-c]|update[-u]|help[-h]>`
+ * Usage: `node data <create | -c>`
+ *        `node data <update | -u [all|results] [round]>`
  */
 const main = (args) => {
   if (args === "create" || args === "-c") {
@@ -30,7 +38,15 @@ const main = (args) => {
     // update
   }
   else {
-    console.log("Usage: node data <[create[-c]|update[-u]|help[-h]]>");
+    console.log(`
+    Usage: node data <create | -c>
+           node data <update | -u> [all|results[round]]
+
+    Description: create                   Fetches all team and driver data from scratch, creating a new file.
+                 update all               Only updates data within each team such as drivers and stats.
+                 update results           Updates each driver's race results and wins, poles etc.
+                 update results [round]   Only updates race results for the given round. Also updates wins, points etc.`
+    );
   }
 };
 
@@ -41,11 +57,12 @@ const main = (args) => {
  * @param {String|Number} season Season to filter
  * @returns {Promise<Array>} Promise containing an array of teams
  */
-const addteams = (data, season) => {
+const addTeams = (data, season) => {
   let teams;
+  let points;
   console.log("Getting teams...");
   // return array of teams
-  return api.getteams(season)
+  return api.getTeams(season)
     .then( (res) => {
       // Get points and WCC for each team, return array of results
       teams = res;
@@ -54,11 +71,20 @@ const addteams = (data, season) => {
       }));
     })
     .then( (res) => {
+      // Get total championships for reach team, return array
+      points = res;
+      return Promise.all(teams.map( (team) => {
+        console.log(team);
+        return api.getChampionships(team, true);
+      }));
+    })
+    .then( (champs) => {
       // Assign each name, points, and wcc position to data
       teams.forEach( (team, index) => {
         data[team] = {
-          points: res[index].points,
-          wcc: res[index].pos
+          points: points[index].points,
+          wcc: points[index].pos,
+          championships: champs[index]
         };
       });
       return teams;
@@ -121,7 +147,7 @@ const addDrivers = (data, teams, season) => {
  * @returns {Promise} Data object
  */
 const addData = (season) => {
-  return addteams(data, season)
+  return addTeams(data, season)
     .then( (teams) => addDrivers(data, teams, season))
     .then( () => {
       console.log("Done.");
