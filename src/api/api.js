@@ -20,8 +20,9 @@ const status = (res) => {
 
 // Utility functions
 const json = (res) => res.json();
-const error = (err) => console.log("Request failed", err);
+const error = (err) => console.log("Request failed: ", err.message);
 const log = (data) => console.log("Result: ", data);
+const delay = (ms) => Promise.all([new Promise(resolve => setTimeout(resolve, ms))]);
 const age = (dob) => {
   const then = new Date(dob);
   const now = new Date();
@@ -83,13 +84,13 @@ const getPoles = (driver, season=null) => {
  * @param {boolean} team If the search is for teams standings
  * @returns {Promise}
  */
-const getPoints = (name, team=false) => {
+const getPoints = (name, season, team=false) => {
   let url = api;
   if (team) {
-    url += `current/constructors/${name}/constructorStandings`;
+    url += `${season}/constructors/${name}/constructorStandings`;
   }
   else {
-    url += `current/drivers/${name}/driverStandings`;
+    url += `${season}/drivers/${name}/driverStandings`;
   }
   return fetch(url + '.json')
     .then(status)
@@ -142,16 +143,16 @@ const getInfo = (driver, season) => {
       info = data.MRData.DriverTable.Drivers[0];
       // Wait for all promise functions to resolve, return array of results
       return Promise.all([
-        getWins(driver, season),
-        getPoles(driver, season),
-        getPoints(driver),
+        getWins(driver),
+        getPoles(driver),
+        getPoints(driver, season),
         getDNF(driver, season),
         getChampionships(driver, false),
         getRaceResults(driver, season)
       ]);
     })
     // Construct driver object
-    .then( (results) => {
+    .then( (data) => {
       return {
         id: info.driverId,
         no: info.permanentNumber,
@@ -161,14 +162,14 @@ const getInfo = (driver, season) => {
         age: age(info.dateOfBirth),
         nationality: info.nationality,
         stats: {
-          wins: results[0],
-          poles: results[1],
-          points: results[2].points,
-          wdc: results[2].pos,
-          dnf: results[3],
-          championships: results[4]
+          wins: data[0],
+          poles: data[1],
+          points: data[2].points,
+          wdc: data[2].pos,
+          dnf: data[3],
+          championships: data[4]
         },
-        results: results[5]
+        results: data[5]
       };
     })
     .catch(error);
@@ -188,15 +189,13 @@ const getRaceResults = (driver, season) => {
     .then(json)
     // Iscolate the array of race results from the data
     .then( (data) => data.MRData.RaceTable.Races)
-    // Get best qualifying time for each race as new array, pass to next step
+    // Get best qualifying times for each race as new array, pass to next step
     .then( (data) => {
-      console.log(data);
       races = data;
-      return Promise.all(races.map( (race) => getBestQualiTime(driver, season, race.round)));
+      return getBestQualiTimes(driver, season);
     })
     // Map the array of race results to a new array of objects with the desired data
     .then( (quali) => {
-      console.log(quali);
       return races.map( (race, index) => {
         const results = race.Results[0];
         // Check if there are any timing results (no participation)
@@ -215,29 +214,40 @@ const getRaceResults = (driver, season) => {
 }
 
 /**
- * Return best qualifying time for the specified driver and race.
+ * Return array of best qualifying times per race for the given driver.
  *
- * Looks Q3 if completed, else Q2, else Q1.
+ * Looks for Q3 time, else Q2, else Q1.
  * @param {*} driver
  * @param {*} season
- * @param {*} round
  */
-const getBestQualiTime = (driver, season, round) => {
-  const url = api + `${season}/${round}/drivers/${driver}/qualifying`;
+const getBestQualiTimes = (driver, season) => {
+  let races;
+  const url = api + `${season}/drivers/${driver}/qualifying`;
   return fetch(url + '.json')
     .then(status)
     .then(json)
-    .then( (data) => data.MRData.RaceTable.Races[0].QualifyingResults[0])
-    .then( (results) => {
-      if ('Q3' in results) {
-        return results.Q3;
-      }
-      else if ('Q2' in results) {
-        return results.Q2;
-      }
-      else {
-        return results.Q1;
-      }
+    .then( (data) => {
+      races = data.MRData.RaceTable.Races;
+      return races.map( (race) => {
+        if ('QualifyingResults' in race) {
+          const results = race.QualifyingResults[0];
+          if ('Q3' in results) {
+            return results.Q3;
+          }
+          else if ('Q2' in results) {
+            return results.Q2;
+          }
+          else if ('Q1' in results) {
+            return results.Q1;
+          }
+          else {
+            return '0:00.000';
+          }
+        }
+        else {
+          return '0:00.000';
+        }
+      });
     })
     .catch(error);
 }
@@ -321,6 +331,6 @@ module.exports = {
   getTeams,
   getDrivers,
   getRaceResults,
-  getBestQualiTime,
+  getBestQualiTimes,
   getChampionships
 };
