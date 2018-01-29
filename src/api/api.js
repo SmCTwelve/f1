@@ -155,19 +155,19 @@ const getInfo = (driver, season) => {
     .then( (data) => {
       return {
         id: info.driverId,
-        no: info.permanentNumber,
+        no: Number(info.permanentNumber),
         code: info.code,
         firstName: info.givenName,
         lastName: info.familyName,
-        age: age(info.dateOfBirth),
+        age: Number(age(info.dateOfBirth)),
         nationality: info.nationality,
         stats: {
-          wins: data[0],
-          poles: data[1],
-          points: data[2].points,
-          wdc: data[2].pos,
-          dnf: data[3],
-          championships: data[4]
+          wins: Number(data[0]),
+          poles: Number(data[1]),
+          points: Number(data[2].points),
+          wdc: Number(data[2].pos),
+          dnf: Number(data[3]),
+          championships: Number(data[4])
         },
         results: data[5]
       };
@@ -201,9 +201,9 @@ const getRaceResults = (driver, season) => {
         // Check if there are any timing results (no participation)
         const raced = 'FastestLap' in results ? true : false;
         return {
-          round: race.round,
-          start: results.grid,
-          finish: results.position,
+          round: Number(race.round),
+          start: Number(results.grid),
+          finish: Number(results.position),
           fastestLap: raced ? results.FastestLap.Time.time : '0:00.000',
           bestQuali: quali[index],
           avgSpeed: raced ? Number(results.FastestLap.AverageSpeed.speed) : 0
