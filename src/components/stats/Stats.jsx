@@ -1,6 +1,6 @@
 import React from 'react';
 import Driver from '../driver/Driver.jsx';
-import { filterDrivers } from '../chart/data.js';
+import { filterDrivers } from '../chart/charts.js';
 
 /**
  * Stats view component which controls the rendering and updating of Charts.

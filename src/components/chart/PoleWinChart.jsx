@@ -1,6 +1,6 @@
 import React from 'react';
 import { HorizontalBar } from 'react-chartjs-2';
-import { driverPoleVsWins } from './data.js';
+import { driverPoleVsWins } from './charts.js';
 
 const options = {
   scales: {

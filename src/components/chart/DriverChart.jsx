@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Bar } from 'react-chartjs-2';
-import * as charts from "./f1/data/data.js";
+import * as charts from "./charts.js";
 
 // Chart options
 const options = {
@@ -35,7 +35,7 @@ class DriverChart extends Component {
     charts.init(this.data);
 
     this.state = {
-      charData: charts.driverWins(this.data, this.team),
+      chartData: charts.driverWins(this.data, this.team),
       chart: "wins"
     }
   }
@@ -60,19 +60,19 @@ class DriverChart extends Component {
 
   render() {
     return(
-      <div>
-        <div>
+      <div className="chart-container">
+        <div className="data-buttons">
           <StatsButton chart="wins" text="Wins" handleOnClick={this.handleUpdate} />
           <StatsButton chart="poles" text="Poles" handleOnClick={this.handleUpdate} />
           <StatsButton chart="points" text="Points" handleOnClick={this.handleUpdate} />
           <StatsButton chart="dnf" text="DNF" handleOnClick={this.handleUpdate} />
         </div>
-        <div>
-          <Bar data={this.state.charData} options={options} />
+        <div className="stats-chart">
+          <Bar data={this.state.chartData} options={options} />
         </div>
-        <div>
-          <button onClick={() => this.showAll(true)}>All</button>
-          <button onClick={() => this.showAll(false)}>Team</button>
+        <div className="mode-buttons">
+          <button className="btn" onClick={() => this.showAll(true)}>All</button>
+          <button className="btn" onClick={() => this.showAll(false)}>Team</button>
         </div>
       </div>
     );
@@ -86,7 +86,9 @@ class DriverChart extends Component {
  *        `text` -- button text.
  */
 const StatsButton = (props) => (
-  <button onClick={() => props.handleOnClick(props.chart)}>{props.text}</button>
+  <button className="btn" onClick={() => props.handleOnClick(props.chart)}>
+    {props.text}
+  </button>
 );
 
 export default DriverChart;
