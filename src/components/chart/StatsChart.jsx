@@ -23,7 +23,7 @@ const options = {
  * Props: `team` -- current team.
  *        `data` -- stats JSON data from API.
  */
-class DriverChart extends Component {
+class StatsChart extends Component {
   constructor(props) {
     super(props);
 
@@ -91,4 +91,4 @@ const StatsButton = (props) => (
   </button>
 );
 
-export default DriverChart;
+export default StatsChart;
