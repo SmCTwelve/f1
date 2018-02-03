@@ -1,5 +1,6 @@
 import React from 'react';
 import PoleWinChart from '../chart/PoleWinChart.jsx';
+import { TimingChart, PositionChart } from '../chart/DriverChart.jsx';
 
 /**
  * Render a driver card with portrait, title and stats.
@@ -22,10 +23,14 @@ const Driver = (props) => (
           <li><strong>Nationality: </strong>{props.driver.nationality}</li>
           <li><strong>Championships: </strong>{props.driver.stats.wdc}</li>
         </ul>
+        <div className='chart-pole-win'>
+          <PoleWinChart driver={props.driver} />
+        </div>
       </div>
     </div>
-    <div className='chart-pole-win'>
-      <PoleWinChart driver={props.driver} />
+    <div className='driver-stats'>
+      <TimingChart driver={props.driver} />
+      <PositionChart driver={props.driver} />
     </div>
   </div>
 );
