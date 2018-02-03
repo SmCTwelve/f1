@@ -165,6 +165,7 @@ const getInfo = (driver, season) => {
           wins: Number(data[0]),
           poles: Number(data[1]),
           points: Number(data[2].points),
+          podiums: 0,
           wdc: Number(data[2].pos),
           dnf: Number(data[3]),
           championships: Number(data[4])
@@ -198,12 +199,17 @@ const getRaceResults = (driver, season) => {
     .then( (quali) => {
       return races.map( (race, index) => {
         const results = race.Results[0];
+        // Increase podiums stat if finish position in top 3
+        const finish = Number(results.position);
+        if (finish <= 3) {
+          driver.stats.podiums++;
+        }
         // Check if there are any timing results (no participation)
         const raced = 'FastestLap' in results ? true : false;
         return {
           round: Number(race.round),
           start: Number(results.grid),
-          finish: Number(results.position),
+          finish: finish,
           fastestLap: raced ? results.FastestLap.Time.time : '0:00.000',
           bestQuali: quali[index],
           avgSpeed: raced ? Number(results.FastestLap.AverageSpeed.speed) : 0
