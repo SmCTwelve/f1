@@ -7,7 +7,7 @@ const options = {
   scales: {
     yAxes: [{
       ticks: {
-        beginAtZero: true
+        beginAtZero: true,
       },
       gridLines: {display: false}
     }],
@@ -35,8 +35,8 @@ class StatsChart extends Component {
     charts.init(this.data);
 
     this.state = {
-      chartData: charts.driverWins(this.data, this.team),
-      chart: "wins"
+      chartData: charts.driverStandings(this.data, this.team),
+      chart: "points"
     }
   }
 
