@@ -1,20 +1,12 @@
 import React from 'react';
-import { HorizontalBar } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 import { driverPoleVsWins } from './charts.js';
 
 const options = {
-  scales: {
-    yAxes: [{
-      gridLines: {display: false}
-    }],
-    xAxes: [{
-      ticks: {
-        beginAtZero: true
-      },
-      gridLines: {display: false}
-    }]
-  },
-}
+  legend: {
+    position: 'top'
+  }
+};
 
 /**
  * Render HorizontalBar chart comparing win and poles for a driver.
@@ -23,9 +15,11 @@ const options = {
  * @param {*} props
  */
 const PoleWinChart = (props) => {
-  console.log(props.driver);
   const chartData = driverPoleVsWins(props.driver);
-  return <HorizontalBar data={chartData} options={options} />
+  if (chartData) {
+    return <Doughnut data={chartData} options={options} width={200} />;
+  }
+  return null;
 }
 
 export default PoleWinChart;
