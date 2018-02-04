@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "chart.js": "^2.7.1",
+    "csv-parse": "^2.0.0",
     "history": "^4.7.2",
     "node-fetch": "^1.7.3",
     "react": "^16.0.0",
