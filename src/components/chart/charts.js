@@ -1,9 +1,11 @@
 // Global array of team names
-let teams;
+let _TEAMS;
 // Global 2D array of driver objects per team
-let drivers;
+let _DRIVERS;
+// Global array of colours in order of drivers
+let _COLOURS;
 // Global array of race number/rounds
-let rounds;
+let _ROUNDS;
 
 // ##### TO DO #####
 
@@ -20,11 +22,11 @@ let rounds;
  * @param {Object} stats Global stats.json object from main app.
 */
 export const init = (stats) => {
-  teams = Object.keys(stats);
-  drivers = teams.map( (team) => {
+  _TEAMS = Object.keys(stats);
+  _DRIVERS = _TEAMS.map( (team) => {
     return stats[team].drivers;
   });
-  rounds = drivers[0][0].results.map( (result) => result.round);
+  _ROUNDS = _DRIVERS[0][0].results.map( (result) => result.round);
 }
 
 /**
@@ -57,7 +59,7 @@ const getDriverCodes = (stats, team=null) => {
  * @returns {Array} Array of values in the order of the drivers.
  */
 const flattenDriverArrays = (key) => {
-  return drivers.reduce( (prev, cur) => {
+  return _DRIVERS.reduce( (prev, cur) => {
     // driver is used when eval(key) called with string e.g. 'driver.code'
     const val = cur.map( (driver) => eval(key));
     return prev.concat(val);
@@ -97,7 +99,7 @@ export const teamStandings = (stats, teams) => {
     labels: teams,
     datasets: [
       {
-        label: "Team Championship Standings (Season)",
+        label: "Team Standings (Season)",
         data: points,
       }
     ]
@@ -149,7 +151,7 @@ export const driverStandings = (stats, team=null) => {
   else {
     pts = flattenDriverArrays('driver.stats.points');
   }
-  return makeDriverChart(stats, team, pts, "Driver Championship Standings (Season)");
+  return makeDriverChart(stats, team, pts, "Driver Standings (Season)");
 }
 
 /** Return line chart comparing driver qualifying and best lap per race. */
@@ -161,7 +163,7 @@ export const driverTimings = (driver) => {
     quali.push(result.bestQuali);
   });
   return {
-    labels: rounds,
+    labels: _ROUNDS,
     datasets: [
       {
         label: "Best Lap",
@@ -216,12 +218,14 @@ export const driverPoleVsWins = (driver) => {
 export const driverStartFinish = (driver) => {
   let starts = [];
   let finishes = [];
+  let diff = [];
   driver.results.forEach( (result) => {
     starts.push(result.start);
     finishes.push(result.finish);
+    diff.push(result.start - result.finish);
   })
   return {
-    labels: rounds,
+    labels: _ROUNDS,
     datasets: [
       {
         label: "Start",
@@ -236,6 +240,7 @@ export const driverStartFinish = (driver) => {
       {
         label: "Finsh",
         data: finishes,
+        borderDash: [3],
         borderColor: '#bf1429',
         backgroundColor: '#bf1429',
         fill: false,
@@ -246,6 +251,7 @@ export const driverStartFinish = (driver) => {
     ]
   };
 }
+
 
 // Start vs finish line (per driver card)
 // FastestLap vs Quali vs Speed (buttons mode like team points graph) per teammate (dataset)
