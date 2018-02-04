@@ -1,5 +1,7 @@
-const fetch = require("node-fetch");
-const api = "https://ergast.com/api/f1/";
+const fetch = require('node-fetch');
+const fs = require('fs');
+const parse = require('csv-parse');
+const api = 'https://ergast.com/api/f1/';
 
 // ###############
 // Get engine component usage from differnt API
@@ -170,10 +172,28 @@ const getInfo = (driver, season) => {
           dnf: Number(data[3]),
           championships: Number(data[4])
         },
-        results: data[5]
+        results: data[5],
+        components: getComponents(driver)
       };
     })
     .catch(error);
+}
+
+/**
+ * Reads CSV component data and returns an object containing the no of each part used.
+ *
+ * @param {*} driver Driver name
+ */
+const getComponents = (driver) => {
+  fs.readFile('../../data/components.csv', (err, buffer) => {
+    if (err) throw err;
+    parse(buffer, {columns:true}, (err, data) => {
+      if (err) throw err;
+      const result = data.filter( (item) => item.driver === driver);
+      delete result[0].driver;
+      return result[0];
+    });
+  });
 }
 
 /**
@@ -338,5 +358,6 @@ module.exports = {
   getDrivers,
   getRaceResults,
   getBestQualiTimes,
-  getChampionships
+  getChampionships,
+  getComponents
 };
