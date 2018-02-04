@@ -27,7 +27,24 @@ const lineOptions = {
   scales: {
     yAxes: [{
       type: 'linear',
+      gridLines: {
+        display: true
+      },
+      scaleLabel: {
+        display: true,
+        labelString: "position"
+      }
+    }],
+    xAxes: [{
+      scaleLabel: {
+        display: true,
+        labelString: "race"
+      }
     }]
+  },
+  hover: {
+    mode: 'index',
+    intersect: false
   },
   tooltips: {
     mode: 'index',
@@ -40,6 +57,11 @@ const lineOptions = {
       },
       title: (ti) => {
         return `Round ${ti[0].xLabel}`;
+      },
+      footer: (ti) => {
+        const start = ti[0].yLabel;
+        const finish = ti[1].yLabel;
+        return `Loss/Gain: ${start - finish}`;
       }
     }
   }
@@ -65,7 +87,17 @@ const timingOptions = {
         source: 'auto'
       }
     }],
-    xAxes: [{gridLines: {display: false}}]
+    xAxes: [{
+      gridLines: {display: false},
+      scaleLabel: {
+        display: true,
+        labelString: "race"
+      }
+    }]
+  },
+  hover: {
+    mode: 'index',
+    intersect: false
   },
   tooltips: {
     mode: 'index',
