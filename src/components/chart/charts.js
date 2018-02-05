@@ -256,15 +256,19 @@ export const driverStartFinish = (driver) => {
  * @param {*} driver Driver object.
  */
 export const driverComponents = (driver) => {
-  let data;
-  for (let i in driver.components) {
-    data.push(driver.components[i]);
+  let data = [];
+  if (!driver.components) {
+    data = [0,0,0,0,0,0];
   }
-  if ('driver' in data) {
-    delete data.driver;
+  else {
+    for (let i in driver.components) {
+      if (i === 'driver') continue;
+      data.push(driver.components[i]);
+    }
   }
+  console.log(data);
   return {
-    labels: ["ICE", "TC", "MGU-H", "MGU-K", "ES", "CE"],
+    labels: ['ICE', 'TC', 'MGU-H', 'MGU-K', 'ES', 'CE'],
     datasets: [
       {
         data
