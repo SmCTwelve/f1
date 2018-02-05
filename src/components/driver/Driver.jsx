@@ -1,5 +1,6 @@
 import React from 'react';
 import PoleWinChart from '../chart/PoleWinChart.jsx';
+import ComponentsChart from '../chart/ComponentsChart.jsx';
 import { TimingChart, PositionChart } from '../chart/DriverChart.jsx';
 
 /**
@@ -29,6 +30,7 @@ const Driver = (props) => (
       </div>
     </div>
     <div className='driver-stats'>
+      <ComponentsChart driver={props.driver} />
       <TimingChart driver={props.driver} />
       <PositionChart driver={props.driver} />
     </div>
