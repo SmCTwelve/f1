@@ -218,12 +218,10 @@ export const driverPoleVsWins = (driver) => {
 export const driverStartFinish = (driver) => {
   let starts = [];
   let finishes = [];
-  let diff = [];
   driver.results.forEach( (result) => {
     starts.push(result.start);
     finishes.push(result.finish);
-    diff.push(result.start - result.finish);
-  })
+  });
   return {
     labels: _ROUNDS,
     datasets: [
@@ -252,18 +250,25 @@ export const driverStartFinish = (driver) => {
   };
 }
 
-
-// Start vs finish line (per driver card)
-// FastestLap vs Quali vs Speed (buttons mode like team points graph) per teammate (dataset)
-// Pole vs wins doughnut (per driver card)
-// Engine component polar (per driver card)
-
-//##############
-// Calculate best fastestLap for each team (ie. the fastest driver) and compare with other teams
-//  to see pace difference. Do same with avg speed and quali.
-
-// Consider converting times to numbers eg. 1:37.550 = 1.37550 s
-//##############
-
-// Consider calculating delta between best lap and quali as Number e.g. 1.0, -2.0 and plot on
-//  line chart as "Qualifying vs Race delta" with each teamate as dataset
+/**
+ * Return polar chart showing use of each engine component.
+ *
+ * @param {*} driver Driver object.
+ */
+export const driverComponents = (driver) => {
+  let data;
+  for (let i in driver.components) {
+    data.push(driver.components[i]);
+  }
+  if ('driver' in data) {
+    delete data.driver;
+  }
+  return {
+    labels: ["ICE", "TC", "MGU-H", "MGU-K", "ES", "CE"],
+    datasets: [
+      {
+        data
+      }
+    ]
+  };
+}
