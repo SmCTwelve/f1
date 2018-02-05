@@ -150,7 +150,8 @@ const getInfo = (driver, season) => {
         getPoints(driver, season),
         getDNF(driver, season),
         getChampionships(driver, false),
-        getRaceResults(driver, season)
+        getRaceResults(driver, season),
+        getComponents(driver)
       ]);
     })
     // Construct driver object
@@ -167,31 +168,41 @@ const getInfo = (driver, season) => {
           wins: Number(data[0]),
           poles: Number(data[1]),
           points: Number(data[2].points),
-          podiums: 0,
+          podiums: Number(getPodiums(data[5])),
           wdc: Number(data[2].pos),
           dnf: Number(data[3]),
           championships: Number(data[4])
         },
         results: data[5],
-        components: getComponents(driver)
+        components: data[6]
       };
     })
     .catch(error);
 }
 
+const getPodiums = (driverResults) => {
+  let podiums = 0;
+  driverResults.forEach( (result) => result.finish <= 3 ? podiums++ : null);
+  return podiums;
+}
+
 /**
- * Reads CSV component data and returns an object containing the no of each part used.
+ * Reads CSV component data and returns a Promise containing the no of each part used.
  *
  * @param {*} driver Driver name
  */
 const getComponents = (driver) => {
-  fs.readFile('../../data/components.csv', (err, buffer) => {
-    if (err) throw err;
-    parse(buffer, {columns:true}, (err, data) => {
+  return new Promise( (resolve) => {
+    fs.readFile('../../data/components.csv', (err, buffer) => {
       if (err) throw err;
-      const result = data.filter( (item) => item.driver === driver);
-      delete result[0].driver;
-      return result[0];
+      // Parse CSV buffer into an object
+      parse(buffer, {columns: true}, (err, data) => {
+        if (err) throw err;
+        // Filter object to match given driver
+        const res = data.filter( (item) => item.driver === driver);
+        delete res[0].driver;
+        resolve(res[0]);
+      });
     });
   });
 }
@@ -219,17 +230,12 @@ const getRaceResults = (driver, season) => {
     .then( (quali) => {
       return races.map( (race, index) => {
         const results = race.Results[0];
-        // Increase podiums stat if finish position in top 3
-        const finish = Number(results.position);
-        if (finish <= 3) {
-          driver.stats.podiums++;
-        }
         // Check if there are any timing results (no participation)
         const raced = 'FastestLap' in results ? true : false;
         return {
           round: Number(race.round),
           start: Number(results.grid),
-          finish: finish,
+          finish: Number(results.position),
           fastestLap: raced ? results.FastestLap.Time.time : '0:00.000',
           bestQuali: quali[index],
           avgSpeed: raced ? Number(results.FastestLap.AverageSpeed.speed) : 0
