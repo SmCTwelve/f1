@@ -1,10 +1,7 @@
 const fetch = require('node-fetch');
-const fs = require('fs');
-const parse = require('csv-parse');
 const api = 'https://ergast.com/api/f1/';
+const _COMPONENTS = require('../../data/components.json');
 
-// ###############
-// Get engine component usage from differnt API
 
 /**
  * Check response status for errors.
@@ -22,9 +19,7 @@ const status = (res) => {
 
 // Utility functions
 const json = (res) => res.json();
-const error = (err) => console.log("Request failed: ", err.message);
-const log = (data) => console.log("Result: ", data);
-const delay = (ms) => Promise.all([new Promise(resolve => setTimeout(resolve, ms))]);
+const error = (err) => console.log("Request failed: ", err);
 const age = (dob) => {
   const then = new Date(dob);
   const now = new Date();
@@ -180,6 +175,10 @@ const getInfo = (driver, season) => {
     .catch(error);
 }
 
+/**
+ * Return total number of podiums this season.
+ * @param {*} driverResults Array of results objects.
+ */
 const getPodiums = (driverResults) => {
   let podiums = 0;
   driverResults.forEach( (result) => result.finish <= 3 ? podiums++ : null);
@@ -192,19 +191,14 @@ const getPodiums = (driverResults) => {
  * @param {*} driver Driver name
  */
 const getComponents = (driver) => {
-  return new Promise( (resolve) => {
-    fs.readFile('../../data/components.csv', (err, buffer) => {
-      if (err) throw err;
-      // Parse CSV buffer into an object
-      parse(buffer, {columns: true}, (err, data) => {
-        if (err) throw err;
-        // Filter object to match given driver
-        const res = data.filter( (item) => item.driver === driver);
-        delete res[0].driver;
-        resolve(res[0]);
-      });
-    });
-  });
+  // Filter object to match given driver
+  const res = _COMPONENTS.filter( (item) => item.driver === driver);
+  if (res) {
+    return Promise.resolve(res[0]);
+  }
+  else {
+    return Promise.resolve(null);
+  }
 }
 
 /**
