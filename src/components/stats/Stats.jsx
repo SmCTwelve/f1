@@ -1,6 +1,6 @@
 import React from 'react';
 import Driver from '../driver/Driver.jsx';
-import { filterDrivers } from '../chart/charts.js';
+import { filterDrivers, chartTheme } from '../chart/charts.js';
 
 /**
  * Stats view component which controls the rendering and updating of Charts.
@@ -10,8 +10,8 @@ import { filterDrivers } from '../chart/charts.js';
  */
 const Stats = (props) => {
   // Get the drivers objects for this team
-  console.log(props.data);
   const teamDrivers = filterDrivers(props.data, props.team);
+  chartTheme(props.team);
   return(
     <div className={`stats ${props.team}`}>
       <div className='driver-container'>
