@@ -6,9 +6,10 @@ import TeamSelect from '../teamselect/Teamselect.jsx';
  * Render team selection index page.
  *
  * Props: `load` -- function to hide/unhide loader.
+ *        `teams` -- teams array from main App component.
  */
 
- class SelectTeam extends Component {
+ class Index extends Component {
    constructor(props) {
      super(props);
    }
@@ -31,11 +32,11 @@ import TeamSelect from '../teamselect/Teamselect.jsx';
       <div>
         <Nav index={true} />
         <main id="main">
-          <TeamSelect />
+          <TeamSelect teams={this.props.teams} />
         </main>
       </div>
      );
    }
  }
 
- export default SelectTeam;
+ export default Index;

@@ -1,8 +1,14 @@
 import React, {Component} from 'react';
 import {Router, Route, Switch, Redirect} from 'react-router-dom';
 import createHashHistory from 'history/createHashHistory';
-import SelectTeam from './components/main/Select.jsx';
+import Index from './components/main/Index.jsx';
 import TeamView from './components/main/Team.jsx';
+import { defaults } from 'react-chartjs-2';
+
+defaults.global.animation.duration = 500;
+defaults.polarArea.scale.ticks.showLabelBackdrop = false;
+defaults.polarArea.scale.ticks.stepSize = 1;
+defaults.global.defaultFontColor = 'rgba(0,0,0,0.9)';
 
 const loader = document.getElementById('loader');
 const root = document.getElementById('root');
@@ -18,8 +24,11 @@ class App extends Component {
     // Available teams
     this.teams = [
       'ferrari',
-      'redbull',
-      'renault'
+      'mercedes',
+      'red_bull',
+      'williams',
+      'renault',
+      'mclaren'
     ]
 
     // State:
@@ -59,23 +68,26 @@ class App extends Component {
     return(
       <Router history={hashHistory}>
         <Switch>
+          {/* Index */}
           <Route
             exact path="/"
             render={(props) =>
-              <SelectTeam {...props} load={this.loader} />
+              <Index {...props} teams={this.teams} load={this.loader} />
             }
           />
+          {/* Team page */}
           <Route
             path={"/:team"}
             render={(props) => {
                 const team = props.match.params.team;
                 // Render nothing (keep loader) if fetch not complete
-                if (!this.state.data) {
+                if (this.state.data === null) {
                   return null;
                 }
                 // Render page for team if match, else redirect to home
                 if (this.teams.includes(team)) {
-                  return <TeamView {...props} team={team} data={this.state.data} load={this.loader} />
+                  return <TeamView {...props} team={team} data={this.state.data}
+                    load={this.loader} />
                 }
                 else {
                   return <Redirect to="/" />
