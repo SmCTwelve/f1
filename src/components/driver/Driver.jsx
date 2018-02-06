@@ -30,9 +30,15 @@ const Driver = (props) => (
       </div>
     </div>
     <div className='driver-stats'>
-      <ComponentsChart driver={props.driver} />
-      <TimingChart driver={props.driver} />
-      <PositionChart driver={props.driver} />
+      <div className='chart-components'>
+        <ComponentsChart driver={props.driver} />
+      </div>
+      <div className="chart-timings">
+        <TimingChart driver={props.driver} />
+      </div>
+      <div className="chart-position">
+        <PositionChart driver={props.driver} />
+      </div>
     </div>
   </div>
 );
