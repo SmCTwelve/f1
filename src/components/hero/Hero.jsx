@@ -3,6 +3,18 @@ import Picture from '../picture/Picture.jsx';
 import Ferrari from '../../images/car-fer.png';
 import Redbull from '../../images/car-rbr.png';
 import Renault from '../../images/car-rsr.png';
+import Mercedes from '../../images/car-mer.png';
+import Mclaren from '../../images/car-mcl.png';
+import Williams from '../../images/car-wr.png';
+
+const cars = {
+  'ferrari': Ferrari,
+  'red_bull': Redbull,
+  'renault': Renault,
+  'williams': Williams,
+  'mercedes': Mercedes,
+  'mclaren': Mclaren
+}
 
 /**
  * Hero image component. Renders the team title and car in the header.
@@ -14,22 +26,7 @@ import Renault from '../../images/car-rsr.png';
  */
 const Hero = (props) => {
 
-  let src = "";
-  // Get correct car image
-  switch (props.team) {
-    case "ferrari":
-      src = Ferrari;
-      break;
-    case "redbull":
-      src = Redbull;
-      break;
-    case "renault":
-      src = Renault;
-      break;
-
-    default:
-      break;
-  }
+  const src = cars[props.team];
 
   const carWidth = 1000;
   const carHeight = 228;

@@ -4,12 +4,16 @@ import iconFerrari from '../../images/logo-ferr.png';
 import iconRedbull from '../../images/logo-rb.png';
 import iconRenault from '../../images/logo-rs.png';
 import iconWilliams from '../../images/logo-wr.png';
+import iconMercedes from '../../images/logo-mer.png';
+import iconMclaren from '../../images/logo-mcl.png';
 
 const teamLogos = {
-  ferrari: iconFerrari,
-  redbull: iconRedbull,
-  renault: iconRenault,
-  williams: iconWilliams
+  'ferrari': iconFerrari,
+  'red_bull': iconRedbull,
+  'renault': iconRenault,
+  'williams': iconWilliams,
+  'mercedes': iconMercedes,
+  'mclaren': iconMclaren
 }
 
 /**
@@ -21,24 +25,7 @@ const teamLogos = {
  */
 const Logo = (props) => {
   const team = props.team;
-  let src = "";
-  switch (team) {
-    case 'ferrari':
-      src = teamLogos.ferrari;
-      break;
-    case 'redbull':
-      src = teamLogos.redbull;
-      break;
-    case 'renault':
-      src = teamLogos.renault;
-      break;
-    case 'williams':
-      src = teamLogos.williams;
-      break;
-
-    default:
-      break;
-  }
+  let src = teamLogos[team];
 
   return(
     <div className="logo-container" role="link" tabIndex={0}>
