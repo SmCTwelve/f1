@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway|Roboto');
 
 $bgWhite: #F5F5F5;
+$lightText: rgba(255, 255, 255, 0.9);
 $mainText: rgba(0, 0, 0, 0.87);
 
 body {
@@ -30,6 +31,10 @@ body {
     opacity: 1;
     transition: opacity 0.2s ease-out;
   }
+}
+
+.flex-container {
+  @include setFlex();
 }
 
 // Main header
@@ -70,8 +75,8 @@ body {
   }
 
   .driver-card {
-    @include setFlex();
-    max-width: 500px;
+    @include setFlex(column);
+    width: 500px;
     margin: 5px;
     padding: 16px;
 
@@ -115,14 +120,20 @@ body {
 
 // ## TODO
 
-// Add contrast colours for different teams for charts and text
+// ## responsive-loader to load srcset automtically
+
+// #### Team select screen vertical cropped bars which expand << >> when clicked
+//    as if team page grows out of it snappily .
+
 // Add animated team select dropdown from floating icon hover
-// Explore different chart styles
-// Get lap time data
-// Get component data
+
 // Get car specs
-// Get engine diagram/images
 
 // Download font and bundle.
 // Different image sizes for different devices.
 // Try <picture> to responsively select appropriate image.
+
+// Adapt media queries into mixins and variables for reuse
+//    max-width 425px (mobile)
+//    max-width 800px (tablet)
+//    max-width 1200px (laptop, ltablet)
