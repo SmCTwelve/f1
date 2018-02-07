@@ -1,59 +1,54 @@
-const fs = require("fs");
-const api = require("./api.js");
-
+const fs = require('fs');
+const api = require('./api.js');
 
 // ##########################
 // TO DO
 // Add update() functionality which takes params e.g.
 
-//  'all' updates everything - intensive, inefficient
-//  'd_stats' updates only the stats for each driver
 //  '[round]' update results (timings, finish pos...) for specified round,
 //     avoids fetching already known results
 //    (parent values e.g. points, wins, poles, dnf will still need updated)
-
-// Will require refactoring, e.g. addDrivers currently does all the work,
-// needs to be split into seperate functions e.g. getStats whilst keeping
-// promise chain intact.
-
-// Consider placing 'drivers' and 'teams' globally in storage to avoid
-// requesting and processing them when they don't need updated.
-
+//##########################
 // Add team and driver colours to object
 // Add driver image url's to object
-
+//#########################
+//#########
+// Add update components method which simply calls getComponents(driver) from API.
+// option to update only specific component using 'update comp <driver> <comp> <val>'
+//#########
 
 // Global data object to be modifed and written to JSON
-let data = {};
-let season = 2017;
+let _DATA = {};
+let _SEASON = 2017;
 
 /**
  * Usage: `node data <create | -c>`
  *        `node data <update | -u [all|results <round> ]>`
  */
 const main = (args) => {
-  if (args[2] === "create" || args[2] === "-c") {
+  if (args[2] === 'create' || args[2] === '-c') {
     create();
   }
-  else if ((args[2] === "update" || args[2] === "-u") && (args[3] === "results")) {
+  else if ((args[2] === 'update' || args[2] === '-u') && (args[3] === 'results')) {
     // update results <round>
   }
   // update all
-  else if ((args[2] === "update" || args[2] === "-u") && (args[3] === "all")) {
+  else if ((args[2] === 'update' || args[2] === '-u') && (args[3] === 'all')) {
     update(true);
   }
   // help
   else {
     console.log(`
     Usage: node data <create | -c>
-           node data <update | -u> [all|results <round> ]
+           node data <update | -u> [all|results <round>|comp <id> <components>]
 
-    Description: create                   Fetches all team and driver data from scratch, creating a new file.
-                 update all               Only updates data within each team such as drivers and stats.
-                 update results <round>   Only updates race results for the given race. Also updates wins, points etc.`
+    Description: create                         Fetches all team and driver data from scratch, creating a new file.
+                 update all                     Only updates data within each team such as drivers and stats.
+                 update results <round>         Only updates race results for the given race. Also updates wins, points etc.
+    `
     );
   }
-};
+}
 
 /**
  * Get an array of teams for the season and add them to the data object.
@@ -93,7 +88,7 @@ const addTeams = (data, season) => {
       });
       return teams;
     });
-};
+}
 
 /**
  * For each team add the driver info.
@@ -127,7 +122,7 @@ const addDrivers = (data, teams, season) => {
       data[team].drivers = info[index];
     });
   });
-};
+}
 
 /**
  * Get info and stats for each driver.
@@ -179,12 +174,11 @@ const resolvePromiseArrays = (array) => {
  * @returns {Promise} Data object
  */
 const addData = (season) => {
-  return addTeams(data, season)
-    .then( (teams) => addDrivers(data, teams, season))
+  return addTeams(_DATA, season)
+    .then( (teams) => addDrivers(_DATA, teams, season))
     .then( () => {
       console.log("Done.");
-      console.log(data);
-      return data;
+      return _DATA;
     })
     .catch( (err) => console.log(err));
 }
@@ -197,9 +191,9 @@ const addData = (season) => {
  */
 const create = () => {
   backup();
-  addData(season)
+  addData(_SEASON)
     .then(data => {
-      fs.writeFile("../../data/stats.json", JSON.stringify(data), (err) => {
+      fs.writeFile('../../data/stats.json', JSON.stringify(data), (err) => {
         if (err) throw err;
       });
     });
@@ -210,7 +204,7 @@ const create = () => {
  */
 const backup = () => {
   try {
-    fs.copyFileSync("../../data/stats.json", "../../data/stats.json.bak");
+    fs.copyFileSync('../../data/stats.json', '../../data/stats.json.bak');
     console.log("Stats successfully backed up.");
   }
   catch (e) {
@@ -230,19 +224,17 @@ const backup = () => {
  */
 const update = (all, round=null) => {
   backup();
-  // Update results only for the given round
-  if (all === false) {
-    // For each team and driver, update stats and fetch only results for given round
-  }
-  // Update all driver info
-  else {
-    // Read in the existing data from file
-    fs.readFile("../../data/stats.json", (err, buffer) => {
-      if (err) throw err;
-      data = JSON.parse(buffer);
-      console.log("DATA BUFFER: ", data);
-      const teams = Object.keys(data);
-      console.log("TEAMS", teams);
+  fs.readFile('../../data/stats.json', (err, buffer) => {
+    if (err) throw err;
+    _DATA = JSON.parse(buffer);
+    const teams = Object.keys(_DATA);
+
+    // Update results only for the given <round>
+    if (all === false) {
+      // For each team and driver, update stats and fetch only results for given round
+    }
+    // Update all driver info
+    else {
       // Replace all team driver info then write back into file
       // addDrivers(data, teams, season)
       //   .then( res => console.log(res))
@@ -253,8 +245,8 @@ const update = (all, round=null) => {
       //     });
       //   })
       //   .catch( err => console.log(err));
-    })
-  }
+    }
+  });
 }
 
 module.exports = {
