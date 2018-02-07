@@ -10,37 +10,39 @@ import { TimingChart, PositionChart } from '../chart/DriverChart.jsx';
  *
  * @param {*} props
  */
-const Driver = (props) => (
-  <div className='driver-card'>
-    <div className='driver-info'>
-      <div className='driver-img'>
-        <div className="placeholder"></div>
+const Driver = (props) => {
+  return(
+    <div className='driver-card'>
+      <div className='driver-info'>
+        <div className='driver-img'>
+          <div className="placeholder"></div>
+        </div>
+        <div>
+          <h3>{`${props.driver.firstName} ${props.driver.lastName}`}</h3>
+          <ul>
+            <li><strong>Code: </strong>{props.driver.code}</li>
+            <li><strong>Age: </strong>{props.driver.age}</li>
+            <li><strong>Nationality: </strong>{props.driver.nationality}</li>
+            <li><strong>Championships: </strong>{props.driver.stats.championships}</li>
+          </ul>
+          <div className='chart-pole-win'>
+            <PoleWinChart {...props} />
+          </div>
+        </div>
       </div>
-      <div>
-        <h3>{`${props.driver.firstName} ${props.driver.lastName}`}</h3>
-        <ul>
-          <li><strong>Code: </strong>{props.driver.code}</li>
-          <li><strong>Age: </strong>{props.driver.age}</li>
-          <li><strong>Nationality: </strong>{props.driver.nationality}</li>
-          <li><strong>Championships: </strong>{props.driver.stats.wdc}</li>
-        </ul>
-        <div className='chart-pole-win'>
-          <PoleWinChart driver={props.driver} />
+      <div className='driver-stats'>
+        <div className='chart-components'>
+          <ComponentsChart {...props} />
+        </div>
+        <div className="chart-timings">
+          <TimingChart {...props} />
+        </div>
+        <div className="chart-position">
+          <PositionChart {...props} />
         </div>
       </div>
     </div>
-    <div className='driver-stats'>
-      <div className='chart-components'>
-        <ComponentsChart driver={props.driver} />
-      </div>
-      <div className="chart-timings">
-        <TimingChart driver={props.driver} />
-      </div>
-      <div className="chart-position">
-        <PositionChart driver={props.driver} />
-      </div>
-    </div>
-  </div>
-);
+  );
+}
 
 export default Driver;

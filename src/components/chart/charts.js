@@ -2,8 +2,8 @@
 let _TEAMS;
 // Global 2D array of driver objects per team
 let _DRIVERS;
-// Global array of colours in order of drivers
-let _COLOURS;
+// Global array of primary and secondary color matching the team page
+let _COLORS = ['#E0E0E0', '#616161'];
 // Global array of race number/rounds
 let _ROUNDS;
 
@@ -27,6 +27,42 @@ export const init = (stats) => {
     return stats[team].drivers;
   });
   _ROUNDS = _DRIVERS[0][0].results.map( (result) => result.round);
+}
+
+/**
+ * Set global colors array values for line charts to contrast with team background.
+ * Also returns light font color for teams with dark backgrounds.
+ * @param {*} team Name
+ */
+export const chartTheme = (team) => {
+  const light = 'rgba(255,255,255,0.7)';
+  const dark = 'rgba(0,0,0,0.9)';
+  let fontColor = dark;
+  switch (team) {
+    case 'ferrari':
+      _COLORS = ['#e4a673', '#451211'];
+      fontColor=light;
+      break;
+    case 'mercedes':
+      _COLORS = ['#53ebc7','#0a3a3c'];
+      fontColor=dark;
+      break;
+    case 'renault':
+      _COLORS = ['#4e917f', '#383323'];
+      break;
+    case 'red_bull':
+      _COLORS = ['#5d8dc3','#bb3249'];
+      fontColor=light;
+      break;
+    case 'williams':
+      _COLORS = ['#285171','#f25662'];
+      break;
+    case 'mclaren':
+      _COLORS = ['#6b6866','#c13c27'];
+      fontColor=light;
+      break;
+  }
+  return fontColor;
 }
 
 /**
@@ -168,8 +204,8 @@ export const driverTimings = (driver) => {
       {
         label: "Best Lap",
         data: race,
-        borderColor: '#bf1429',
-        backgroundColor: '#bf1429',
+        borderColor: _COLORS[1],
+        backgroundColor: _COLORS[1],
         borderWidth: 2,
         fill: false,
         pointRadius: 0.75,
@@ -178,8 +214,8 @@ export const driverTimings = (driver) => {
       {
         label: "Qualifying",
         data: quali,
-        borderColor: '#287b49',
-        backgroundColor: '#287b49',
+        borderColor: _COLORS[0],
+        backgroundColor: _COLORS[0],
         borderWidth: 2,
         fill: false,
         pointRadius: 0.75,
@@ -207,7 +243,7 @@ export const driverPoleVsWins = (driver) => {
   else {
     return {
       labels: ["None"],
-      datasets: [{data: [1]}]
+      datasets: [{data: [1], yAxisID: 'main'}]
     };
   }
 }
@@ -228,8 +264,8 @@ export const driverStartFinish = (driver) => {
       {
         label: "Start",
         data: starts,
-        borderColor: '#287b49',
-        backgroundColor: '#287b49',
+        borderColor: _COLORS[0],
+        backgroundColor: _COLORS[0],
         fill: false,
         pointRadius: 0.75,
         spanGaps: true,
@@ -239,8 +275,8 @@ export const driverStartFinish = (driver) => {
         label: "Finsh",
         data: finishes,
         borderDash: [3],
-        borderColor: '#bf1429',
-        backgroundColor: '#bf1429',
+        borderColor: _COLORS[1],
+        backgroundColor: _COLORS[1],
         fill: false,
         pointRadius: 0.75,
         spanGaps: true,

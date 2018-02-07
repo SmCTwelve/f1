@@ -2,19 +2,25 @@ import React, { Component } from 'react';
 import { Bar } from 'react-chartjs-2';
 import * as charts from "./charts.js";
 
+// Use black for team stat charts, always white bg
+const fontColor = 'rgba(0,0,0,0.9)';
+
 // Chart options
 const options = {
   scales: {
     yAxes: [{
       ticks: {
         beginAtZero: true,
+        fontColor
       },
       gridLines: {display: false}
     }],
     xAxes: [{
-      gridLines: {display: false}
+      gridLines: {display: false},
+      ticks: {fontColor}
     }]
-  }
+  },
+  legend: {labels: {fontColor}}
 }
 
 /**
