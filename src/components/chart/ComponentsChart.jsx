@@ -1,6 +1,9 @@
 import React from 'react';
-import { Polar } from 'react-chartjs-2';
+import { Polar, defaults } from 'react-chartjs-2';
 import { driverComponents } from './charts.js';
+
+defaults.polarArea.scale.ticks.showLabelBackdrop = false;
+defaults.polarArea.scale.ticks.stepSize = 1;
 
 const options = {
   layout: {

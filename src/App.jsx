@@ -6,9 +6,6 @@ import TeamView from './components/main/Team.jsx';
 import { defaults } from 'react-chartjs-2';
 
 defaults.global.animation.duration = 500;
-defaults.polarArea.scale.ticks.showLabelBackdrop = false;
-defaults.polarArea.scale.ticks.stepSize = 1;
-defaults.global.defaultFontColor = 'rgba(0,0,0,0.9)';
 
 const loader = document.getElementById('loader');
 const root = document.getElementById('root');
