@@ -14,6 +14,9 @@ import StatsChart from '../chart/StatsChart.jsx';
  class TeamView extends Component {
    constructor(props) {
      super(props);
+
+     // If mobile (used to customise some chart options)
+     this.mobile = window.screen.width < 480 ? true : false;
    }
 
    componentDidMount() {
