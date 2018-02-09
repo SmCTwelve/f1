@@ -302,7 +302,6 @@ export const driverComponents = (driver) => {
       data.push(driver.components[i]);
     }
   }
-  console.log(data);
   return {
     labels: ['ICE', 'TC', 'MGU-H', 'MGU-K', 'ES', 'CE'],
     datasets: [
