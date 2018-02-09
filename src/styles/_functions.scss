@@ -1,5 +1,10 @@
 // Utility functions
 
+// Screen sizes
+$mobile: 480px; // up to 480px
+$tablet: 1200px; // between mobile up to tablet
+$laptop: 1490px;  // between tablet up to laptop
+
 // Flex mixin -- sets display attribute to 'flex'
 // sets flex-flow to value of $flow param, accepts 'row' or 'column'
 // Default call without argument is set to 'row'
@@ -45,4 +50,24 @@
 @mixin dropShadowHover() {
   box-shadow: 0 12px 28px rgba(0,0,0,0.18),
               0 8px 12px rgba(0,0,0,0.12);
+}
+
+// Media queries (above $laptop uses normal stylesheet)
+// Mobile, for screens up to $mobile
+@mixin mobile() {
+  @media screen and (max-width: $mobile) {
+    @content;
+  }
+}
+// From $mobile up to $tablet
+@mixin tablet() {
+  @media screen and (max-width: $tablet) {
+    @content;
+  }
+}
+// From $tablet up to $laptop
+@mixin laptop() {
+  @media screen and (max-width: $laptop) {
+    @content;
+  }
 }
