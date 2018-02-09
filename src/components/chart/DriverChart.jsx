@@ -29,10 +29,6 @@ const lineOptions = {
       type: 'linear',
       gridLines: {
         display: true
-      },
-      scaleLabel: {
-        display: true,
-        labelString: "position"
       }
     }],
     xAxes: [{

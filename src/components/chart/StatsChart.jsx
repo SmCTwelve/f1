@@ -7,6 +7,7 @@ const fontColor = 'rgba(0,0,0,0.9)';
 
 // Chart options
 const options = {
+  responsive: true,
   scales: {
     yAxes: [{
       ticks: {
