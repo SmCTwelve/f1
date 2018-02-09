@@ -1,4 +1,4 @@
-@import 'chart', 'team', 'functions', 'select';
+@import 'chart', 'team', 'functions', 'nav';
 @import url('https://fonts.googleapis.com/css?family=Raleway|Roboto');
 
 $bgWhite: #F5F5F5;
@@ -102,19 +102,23 @@ body {
 
 // Container to restrict content width and presentation
 .content {
-  max-width: 800px;
+  max-width: 1000px;
   padding: 0 16px;
   margin: 0 auto;
 }
 
-@media screen and (max-width: 980px) {
-  .nav-container, .nav-container.shrink {
-    min-height: 80px;
-  }
-}
-@media screen and (max-width: 420px) {
+@include mobile() {
   .hero-container {
     padding-top: 120px;
+  }
+  .stats .driver-card {
+    width: 100%;
+  }
+}
+
+@include tablet() {
+  .content {
+    width: 100%;
   }
 }
 
@@ -129,11 +133,6 @@ body {
 
 // Get car specs
 
-// Download font and bundle.
+// --- Download fonts and bundle.
 // Different image sizes for different devices.
 // Try <picture> to responsively select appropriate image.
-
-// Adapt media queries into mixins and variables for reuse
-//    max-width 425px (mobile)
-//    max-width 800px (tablet)
-//    max-width 1200px (laptop, ltablet)
