@@ -30,15 +30,12 @@ class App extends Component {
 
     // State:
     this.state = {
-      data: null
+      data: null,
+      mobile: false
     };
     this.loader = this.loader.bind(this);
     this.getData = this.getData.bind(this);
     this.checkMobile = this.checkMobile.bind(this);
-
-    // If mobile (used to customise some chart options)
-    this.mobile;
-    this.checkMobile();
 
     // Fetch and load the stats
     this.getData();
@@ -57,7 +54,8 @@ class App extends Component {
   }
 
   checkMobile() {
-    this.mobile = window.screen.width < 500 ? true : false;
+    const mobile = window.screen.width < 500 ? true : false;
+    this.setState({mobile});
   }
 
   loader(show) {
@@ -72,7 +70,12 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.checkMobile();
     window.addEventListener('resize', this.checkMobile);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.checkMobile);
   }
 
   render() {
@@ -97,8 +100,8 @@ class App extends Component {
                 }
                 // Render page for team if match, else redirect to home
                 if (this.teams.includes(team)) {
-                  return <TeamView {...props} team={team} data={this.state.data}
-                    load={this.loader} />
+                  return <TeamView {...props} mobile={this.state.mobile} team={team}
+                    data={this.state.data} load={this.loader} />
                 }
                 else {
                   return <Redirect to="/" />
