@@ -34,7 +34,13 @@ class App extends Component {
     };
     this.loader = this.loader.bind(this);
     this.getData = this.getData.bind(this);
+    this.checkMobile = this.checkMobile.bind(this);
 
+    // If mobile (used to customise some chart options)
+    this.mobile;
+    this.checkMobile();
+
+    // Fetch and load the stats
     this.getData();
   }
 
@@ -50,6 +56,10 @@ class App extends Component {
     .catch( (err) => console.log(err));
   }
 
+  checkMobile() {
+    this.mobile = window.screen.width < 500 ? true : false;
+  }
+
   loader(show) {
     if (show) {
       loader.style.display = "block";
@@ -59,6 +69,10 @@ class App extends Component {
       loader.style.display = "none";
       root.classList.remove("hide");
     }
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.checkMobile);
   }
 
   render() {
