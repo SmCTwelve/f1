@@ -18,15 +18,12 @@ import StatsChart from '../chart/StatsChart.jsx';
 
    componentDidMount() {
      this.props.load(false);
-     console.log("TEAM MOUNTED");
    }
    componentDidUpdate() {
      this.props.load(false);
-     console.log("Updated...");
    }
    componentWillUpdate() {
      this.props.load(true);
-     console.log("Updating...");
    }
    componentWillMount() {
      this.props.load(true);
@@ -44,10 +41,10 @@ import StatsChart from '../chart/StatsChart.jsx';
             <div className="content">
               <h1 className="hdg">{this.props.team}</h1>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro odio reiciendis illum corrupti, dolore esse, laborum, necessitatibus dolorem nostrum officiis quo delectus dolorum quibusdam? Quae maxime commodi expedita dignissimos. Quasi?</p>
-              <StatsChart team={this.props.team} data={this.props.data} />
+              <StatsChart {...this.props} />
             </div>
           </div>
-          <Stats data={this.props.data} team={this.props.team} />
+          <Stats {...this.props} />
         </main>
       </div>
      );

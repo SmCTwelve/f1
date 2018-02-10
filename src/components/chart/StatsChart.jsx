@@ -41,6 +41,8 @@ class StatsChart extends Component {
 
     charts.init(this.data);
 
+    options.maintainAspectRatio = this.props.mobile ? false : true;
+    console.log(options);
     this.state = {
       chartData: charts.driverStandings(this.data, this.team),
       chart: "points"
@@ -75,7 +77,11 @@ class StatsChart extends Component {
           <StatsButton chart="dnf" text="DNF" handleOnClick={this.handleUpdate} />
         </div>
         <div className="stats-chart">
-          <Bar data={this.state.chartData} options={options} />
+          {this.props.mobile ? (
+            <Bar data={this.state.chartData} options={options} height={200} />
+          ) : (
+            <Bar data={this.state.chartData} options={options} />
+          )}
         </div>
         <div className="mode-buttons">
           <button className="btn" onClick={() => this.showAll(true)}>All</button>

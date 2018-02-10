@@ -1,4 +1,12 @@
+@import 'functions';
+
 .chart-components {
   margin: 10px;
   padding: 5px;
+}
+
+@include mobile() {
+  .chart-timings, .chart-position, .chart-components, .pole-win-chart {
+    height: 200px;
+  }
 }

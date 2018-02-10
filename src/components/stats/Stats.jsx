@@ -8,6 +8,7 @@ import { defaults } from 'react-chartjs-2';
  *
  * Props: `data` -- stats data object to be used to build charts.
  *        `team` -- current team display.
+ *        `mobile` -- triggers mobile specific chart options.
  */
 const Stats = (props) => {
   // Get the drivers objects for this team
@@ -19,7 +20,8 @@ const Stats = (props) => {
       <div className='driver-container'>
         {
           teamDrivers.map( (driver, index) => {
-            return <Driver key={index} driver={driver} fontColor={fontColor} />
+            return <Driver key={index} driver={driver} mobile={props.mobile}
+              fontColor={fontColor} />
           })
         }
       </div>

@@ -7,6 +7,7 @@ import { TimingChart, PositionChart } from '../chart/DriverChart.jsx';
  * Render a driver card with portrait, title and stats.
  *
  * Props: `driver` -- a driver object from the stats JSON.
+ *        `mobile` -- triggers mobile specific chart options.
  *
  * @param {*} props
  */
@@ -25,11 +26,19 @@ const Driver = (props) => {
             <li><strong>Nationality: </strong>{props.driver.nationality}</li>
             <li><strong>Championships: </strong>{props.driver.stats.championships}</li>
           </ul>
-          <div className='chart-pole-win'>
-            <PoleWinChart {...props} />
-          </div>
+          {props.mobile ?
+            null :
+            <div className='chart-pole-win'>
+              <PoleWinChart {...props} />
+            </div>
+          }
         </div>
       </div>
+      {props.mobile ?
+      <div className='chart-pole-win'>
+        <PoleWinChart {...props} />
+      </div> : null
+      }
       <div className='driver-stats'>
         <div className='chart-components'>
           <ComponentsChart {...props} />
