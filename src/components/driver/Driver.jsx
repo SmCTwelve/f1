@@ -18,7 +18,7 @@ const Driver = (props) => {
         <div className='driver-img'>
           <div className="placeholder"></div>
         </div>
-        <div>
+        <div style={{color: props.fontColor}}>
           <h3>{`${props.driver.firstName} ${props.driver.lastName}`}</h3>
           <ul>
             <li><strong>Code: </strong>{props.driver.code}</li>
