@@ -37,10 +37,10 @@ class App extends Component {
     this.getData = this.getData.bind(this);
     this.checkMobile = this.checkMobile.bind(this);
 
-    // Fetch and load the stats
     this.getData();
   }
 
+  // Fetch and load the stats for the app
   getData() {
     fetch(
       'https://raw.githubusercontent.com/SmCTwelve/f1/master/data/stats.json'
@@ -54,7 +54,7 @@ class App extends Component {
   }
 
   checkMobile() {
-    const mobile = window.screen.width < 500 ? true : false;
+    const mobile = window.screen.width < 780 ? true : false;
     this.setState({mobile});
   }
 
