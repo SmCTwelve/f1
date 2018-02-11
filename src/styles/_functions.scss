@@ -71,3 +71,10 @@ $laptop: 1490px;  // between tablet up to laptop
     @content;
   }
 }
+
+// Remove sticky hover styles on touchscreens
+@media (hover:none), (pointer:coarse) {
+  button:hover {
+    background-color: transparent;
+  }
+}
