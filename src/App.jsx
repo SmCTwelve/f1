@@ -6,6 +6,7 @@ import TeamView from './components/main/Team.jsx';
 import { defaults } from 'react-chartjs-2';
 
 defaults.global.animation.duration = 500;
+defaults.global.events = ['click', 'touchend', 'mousemove', 'mouseout'];
 
 const loader = document.getElementById('loader');
 const root = document.getElementById('root');
@@ -54,7 +55,15 @@ class App extends Component {
   }
 
   checkMobile() {
-    const mobile = window.screen.width < 780 ? true : false;
+    const mobile = (window.screen.width < 600 || window.screen.height < 500) ? true : false;
+    if (mobile) {
+      defaults.global.animation.duration = 200;
+      defaults.global.hover.animationDuration = 200;
+    }
+    else {
+      defaults.global.animation.duration = 500;
+      defaults.global.hover.animationDuration = 400;
+    }
     this.setState({mobile});
   }
 
@@ -86,7 +95,8 @@ class App extends Component {
           <Route
             exact path="/"
             render={(props) =>
-              <Index {...props} teams={this.teams} load={this.loader} />
+              <Index {...props} mobile={this.state.mobile} teams={this.teams}
+                load={this.loader} />
             }
           />
           {/* Team page */}

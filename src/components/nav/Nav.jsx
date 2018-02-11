@@ -24,9 +24,8 @@ class Nav extends Component {
   /**
    * Hide the navbar on scroll down, show on scroll up.
    */
-  hideNav() {
+  hideNav(navbar) {
     const pos = window.pageYOffset || document.documentElement.scrollTop;
-    const navbar = document.querySelector('.nav-container');
     if (pos > lastScrollTop) {
       navbar.classList.add('nav-hide');
     }
@@ -55,11 +54,10 @@ class Nav extends Component {
    * reappear on scroll up.
    */
   animateNav() {
-    if (this.props.mobile) {
-      this.hideNav();
-      return;
-    }
     const navbar = document.querySelector('.nav-container'); // navbar container element
+    if (this.props.mobile) {
+      this.hideNav(navbar);
+    }
     const logo = navbar.querySelector('.logo-container');
     const navHeight = navbar.clientHeight;
     const distance = window.pageYOffset;
@@ -77,6 +75,9 @@ class Nav extends Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.animateNav);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.animateNav);
   }
 
   render() {

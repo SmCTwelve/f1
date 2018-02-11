@@ -28,7 +28,7 @@
 
 .nav-container {
   top: 0;
-  transition: min-height 0.2s ease-out, top 0.4s ease-in-out;
+  transition: min-height 0.2s ease-out, top 0.35s ease-in-out;
   &.shrink {
     min-height: 65px;
   }
@@ -41,7 +41,7 @@
     }
   }
   &.nav-hide {
-    top: -20%;
+    top: -50%;
   }
 }
 
