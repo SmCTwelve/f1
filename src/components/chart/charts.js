@@ -35,12 +35,12 @@ export const init = (stats) => {
  * @param {*} team Name
  */
 export const chartTheme = (team) => {
-  const light = 'rgba(255,255,255,0.7)';
+  const light = 'rgba(255,255,255,0.84)';
   const dark = 'rgba(0,0,0,0.9)';
   let fontColor = dark;
   switch (team) {
     case 'ferrari':
-      _COLORS = ['#e4a673', '#451211'];
+      _COLORS = ['#90B494', '#451211'];
       fontColor=light;
       break;
     case 'mercedes':
@@ -236,14 +236,17 @@ export const driverPoleVsWins = (driver) => {
       labels: ["Wins", "Poles"],
       datasets: [
         {
-          data: [wins, poles]
+          data: [wins, poles],
+          backgroundColor: ['rgba(16, 150, 72,0.65)',
+            'rgba(246, 247, 248,0.84)'],
+          borderColor: 'rgba(0,0,0,0.1)'
         }]
     };
   }
   else {
     return {
       labels: ["None"],
-      datasets: [{data: [1], yAxisID: 'main'}]
+      datasets: [{data: [1], yAxisID: 'main', borderColor: 'rgba(0,0,0,0.1)'}]
     };
   }
 }
@@ -306,7 +309,16 @@ export const driverComponents = (driver) => {
     labels: ['ICE', 'TC', 'MGU-H', 'MGU-K', 'ES', 'CE'],
     datasets: [
       {
-        data
+        data,
+        backgroundColor: [
+          'rgba(37, 50, 55, 0.6)',
+          'rgba(92, 107, 115, 0.6)',
+          'rgba(157, 180, 192, 0.6)',
+          'rgba(194, 223, 227, 0.6)',
+          'rgba(224, 251, 252, 0.6)',
+          'rgba(255, 255, 255, 0.6)'
+        ],
+        borderColor: 'rgba(0,0,0,0.1)'
       }
     ]
   };
