@@ -1,8 +1,21 @@
 @import 'functions';
 
+.mode-buttons, .data-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.chart-container {
+  margin: 35px 0;
+}
+
 .chart-components {
   margin: 10px;
   padding: 5px;
+}
+
+.stats-chart {
+  margin: 5px 0;
 }
 
 @include mobile() {
