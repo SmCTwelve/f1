@@ -42,7 +42,7 @@ class StatsChart extends Component {
     charts.init(this.data);
 
     options.maintainAspectRatio = this.props.mobile ? false : true;
-    console.log(options);
+
     this.state = {
       chartData: charts.driverStandings(this.data, this.team),
       chart: "points"
