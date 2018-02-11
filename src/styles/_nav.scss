@@ -16,12 +16,19 @@
   border-radius: 50%;
 }
 
+#home {
+  margin-right: 10px;
+  border-right: 1px solid rgba(0, 0, 0, 0.1)
+}
+
 .navlink:hover {
   background-color: rgb(231, 231, 231);
   transition: 0.3s;
 }
 
 .nav-container {
+  top: 0;
+  transition: min-height 0.2s ease-out, top 0.4s ease-in-out;
   &.shrink {
     min-height: 65px;
   }
@@ -32,6 +39,9 @@
     @include mobile() {
       min-height: 50px;
     }
+  }
+  &.nav-hide {
+    top: -20%;
   }
 }
 

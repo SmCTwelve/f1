@@ -16,7 +16,7 @@ const Stats = (props) => {
   const fontColor = chartTheme(props.team);
   defaults.global.defaultFontColor = fontColor;
   return(
-    <div className={`stats ${props.team}`}>
+    <div className={`stats ${props.team}`} id="stats">
       <div className='driver-container'>
         {
           teamDrivers.map( (driver, index) => {
