@@ -30,7 +30,7 @@ import TeamSelect from '../teamselect/Teamselect.jsx';
    render() {
      return(
       <div>
-        <Nav index={true} />
+        <Nav index={true} mobile={this.props.mobile} />
         <main id="main">
           <TeamSelect teams={this.props.teams} />
         </main>
