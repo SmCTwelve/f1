@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 const api = 'https://ergast.com/api/f1/';
-const _COMPONENTS = require('../../data/components.json');
+const _COMPONENTS = require('./components.json');
 
 
 /**
