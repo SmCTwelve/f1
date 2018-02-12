@@ -5,17 +5,14 @@ const api = require('./api.js');
 // TO DO
 // Add update() functionality which takes params e.g.
 
-//  '[round]' update results (timings, finish pos...) for specified round,
-//     avoids fetching already known results
-//    (parent values e.g. points, wins, poles, dnf will still need updated)
 //##########################
 // Add team and driver colours to object
-// Add driver image url's to object
 //#########################
 //#########
 // Add update components method which simply calls getComponents(driver) from API.
 // option to update only specific component using 'update comp <driver> <comp> <val>'
 //#########
+// Plot team average speed per race (taking average of each driver's best lap)
 
 // Global data object to be modifed and written to JSON
 let _DATA = {};
@@ -29,6 +26,10 @@ const main = (args) => {
   if (args[2] === 'create' || args[2] === '-c') {
     create();
   }
+  else if (args[2] === 'delete' || args[2] === '-d') {
+    const driver = args[3];
+    del(driver);
+  }
   else if ((args[2] === 'update' || args[2] === '-u') && (args[3] === 'results')) {
     // update results <round>
   }
@@ -41,11 +42,13 @@ const main = (args) => {
     console.log(`
     Usage: node data <create | -c>
            node data <update | -u> [all|results <round>|comp <id> <components>]
+           node data <delete | -d> <driverID|driverCode>
 
     Description: create                         Fetches all team and driver data from scratch, creating a new file.
                  update all                     Only updates data within each team such as drivers and stats.
                  update results <round>         Only updates race results for the given race. Also updates wins, points etc.
-    `
+                 delete <driver>                Delete the driver with the given ID or code.
+                 `
     );
   }
 }
@@ -210,6 +213,31 @@ const backup = () => {
   catch (e) {
     console.log("File doesn't exist, will not be backed up.", e);
   }
+}
+
+/**
+ * Search each team's drivers for match and delete that driver's object.
+ * @param {String} driverId The driver's unique id or suffix code.
+ */
+const del = (driverId) => {
+  backup();
+  fs.readFile('../../data/stats.json', (err, buffer) => {
+    if (err) throw err;
+    _DATA = JSON.parse(buffer);
+    const teams = Object.keys(_DATA);
+    teams.forEach( (team) => {
+      _DATA[team].drivers.forEach( (driver, index) => {
+        if (driver.id === driverId || driver.code === driverId.toUpperCase()) {
+          _DATA[team].drivers.splice(index, 1);
+          console.log("Driver " + driverId + " removed.");
+        }
+      });
+    });
+    fs.writeFile('../../data/stats.json', JSON.stringify(_DATA), (err) => {
+      if (err) throw err;
+      console.log("Changes saved.");
+    });
+  });
 }
 
 /**
