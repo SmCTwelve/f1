@@ -7,12 +7,7 @@
       "model": "SF70H",
       "stats": ""
     },
-    "logo": "./images/logo-ferr.png",
-    "colors": {
-      "base": "#84071f",
-      "highlight": "#bf1429",
-      "accent": "#287b49"
-    }
+    "description": "The oldest and most successful Formula One team, having competed in every world championship since the 1950 with a record 16 Constructors' Championships, the last of which was won in 2008. Michael Schumacher is the team's most successful driver, joining the team in 1996 and departing in 2006 with 5 drivers' titles and 72 victories for the team consecutively between 2000 and 2004, marking the most successful era for the team.\r\nIn recent years the team have struggled to overcome the dominance of Mercedes, often beginning strong in the season but lacking the same pace as their competitor. Though they are still the second strongest competitor with consistent 2nd place finishes with Sebastian Vettel."
   },
 
   "renault": {
@@ -22,26 +17,46 @@
       "model": "SF70H",
       "stats": ""
     },
-    "logo": "./images/logo-rs.png",
-    "colors": {
-      "base": "#84071f",
-      "highlight": "#bf1429",
-      "accent": "#287b49"
-    }
+    "description": "In 1977, the company entered Formula One as a constructor, introducing the turbo engine to Formula One in its first car, the Renault RS01. They have been associated with Formula One as both constructor and engine supplier for various periods since 1977, winning both the Drivers' and Constructors' Championships in 2005 and 2006. As an engine supplier, Renault has contributed to nine other World Drivers' Championships. It has collected over 160 wins as engine supplier, ranking third in Formula One history."
   },
 
-  "redbull": {
+  "red_bull": {
     "title": "Red Bull Racing",
     "suffix": "rbr",
     "car": {
       "model": "RB13",
       "stats": ""
     },
-    "logo": "./images/logo-rb.png",
-    "colors": {
-      "base": "#021e44",
-      "highlight": "#153a5f",
-      "accent": "#ab0d3b"
-    }
+    "description": "One of two Formula One teams owned by beverage company Red Bull GmbH, the other being Scuderia Toro Rosso. The team won four successive Constructors' Championship titles, in 2010, 2011, 2012, and 2013, becoming the first Austrian licensed team to win the title, as well as quadruple Drivers' Championships with Sebastian Vettel."
+  },
+
+  "mercedes": {
+    "title": "Mercedes AMG Petronas",
+    "suffix": "mer",
+    "car": {
+      "model": "RB13",
+      "stats": ""
+    },
+    "description": "Mercedes has become one of the most successful teams in recent Formula One history, having achieved consecutive Drivers' and Constructors' Championships from 2014 to 2017. In 2014, Mercedes managed 11 one-two finishes beating McLaren's 1988 record of 10. The record was extended the following year with 12 one-two finishes. Mercedes also collected 16 victories in 2014 and 2015 apiece breaking McLaren (1988) and Ferrari's (2002, 2004) record of 15. In 2016, they extended this record with 19 wins. The manufacturer has collected more than 100 wins as engine supplier and is ranked fourth in Formula One history. Six Constructors' and seven Drivers' Championships have been won with Mercedes-Benz engines."
+  },
+
+  "williams": {
+    "title": "Williams Martini Racing",
+    "suffix": "mer",
+    "car": {
+      "model": "RB13",
+      "stats": ""
+    },
+    "description": "Founded in 1977, the team has won 7 Drivers' Championships and 9 Constructors Championships between 1980 and 1997, having not led a Championship since. The team relies heavily on the support of an engine manufacturer, most successfully with Renault winning 5 titles. Mercedes are the current supplier, though the team's performance has stagnated in recent years, often fighting for 4th in the Constructor Standings."
+  },
+
+  "mclaren": {
+    "title": "McLaren",
+    "suffix": "mer",
+    "car": {
+      "model": "RB13",
+      "stats": ""
+    },
+    "description": "As the second most successful team in Formula One history after Ferrari, the team have won 182 races, 12 Drivers' Championships and 8 Constructors' Championships. However, the team have suffered significant setbacks in the current era under the supply of Honda engines with major reliability issues and significant lack of performance compared with their competitors, often running near the back of the pack or retiring from the race. After controvesy over Honda's reliability, the team plan to introduce Renault engines in 2018 in the hopes of regaining their former success."
   }
 }
