@@ -97,6 +97,11 @@ button:focus {outline: none;}
       width: 200px;
       height: 250px;
       background-color: rgba(128, 128, 128, 0.247);
+
+      img {
+        border: 1px solid rgba(155, 155, 155, 0.034);
+        border-radius: 2px;
+      }
     }
 
     .driver-info {
@@ -134,8 +139,8 @@ button:focus {outline: none;}
       margin-bottom: 10px;
 
       .driver-img {
-        width: 120px;
-        height: 160px;
+        width: 130px;
+        height: 150px;
       }
     }
   }
