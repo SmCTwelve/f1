@@ -1,8 +1,8 @@
-> Formula 1 Statistics 
+<h2 align="center">Formula 1 Statistics</h2>
 
-A React web application displaying statistical data for Formula 1 teams and drivers. 
+<p align="center">A React web application displaying statistical data for Formula 1 teams and drivers.</p>
 
-https://smctwelve.github.io/f1/
+<p align="center"><b>Demo:</b> https://smctwelve.github.io/f1/ </p>
 
 ### About
 
