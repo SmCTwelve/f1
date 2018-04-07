@@ -1,4 +1,5 @@
-> Formula 1 Factoid Page
+
+<p align="center"><img src="./themes.jpg" width=75%></p>
 
 Requirements
 ============
