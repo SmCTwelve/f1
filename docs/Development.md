@@ -99,6 +99,10 @@ const aspect = (props.height/props.width) * 100;
    </div>
 </div>
 ```
+Of course, this was encapsulated into a React component, `Picture`, demonstrating the power of React to create reusable components. The above code then becomes: 
+```JSX
+<Picture width height />
+```
 Various techniques to maximise performance and usability were implemented, including Progressive Web App (PWA) principles such as fast inital render and caching the application shell. For example, the critical CSS is inlined in the HTML to increase first-time-to-render rather than wait for an external stylesheet request. Moreover, HTML `preload` header is used, where supported, to fetch the stylesheet and JS bundle in the background without blocking the inital page render. More work can be done to increase performance such as bundling fonts through Webpack to further reduce network requests, and splitting the JS bundle into chunks which can be individually cached and downloaded as required. 
 
 ### Separation of concerns (MVC)
